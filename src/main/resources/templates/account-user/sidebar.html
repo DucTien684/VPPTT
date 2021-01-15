@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
+<meta charset="UTF-8">
+<div class="col-lg-3 col-md-3 col-sm-12"
+	th:fragment="sidebar-account-fragment">
+	<!-- shop-filter start -->
+	<div class="shop-filter shop-space myborder">
+		<div class="m-10">
+			<h2 class="shop-sidebar-title m-top-20">
+				<i class="fas fa-user-circle"
+					style="font-size: 45px; color: #0088cc;"> </i>&nbsp;
+				<p style="position: relative; top: -30px; left: 54px;">Tài khoản
+					của:</p>
+				<b class="colorme" th:utext="${session.SESSION.hoTen}"></b>
+			</h2>
+			<div class="info_widget">
+				<div class="price_filter">
+					<div class="list-group">
+						<a th:href="@{/account_info}" class="list-group-item "> <i
+							class="fas fa-id-card" style="color: #0088cc;"></i>&nbsp; Thông
+							tin tài khoản
+						</a> <a th:href="@{/account_qldh}" class="list-group-item "> <i
+							class="fas fa-clipboard-list colorme"></i> &nbsp; Đơn hàng của
+							tôi
+						</a> <a th:href="@{/account_address}" class="list-group-item "> <i
+							class="fas fa-map-marker-alt colorme"></i> &nbsp; Sổ địa chỉ
+						</a> <a th:href="@{/logout}" class="list-group-item "> <i
+							class="fas fa-sign-out-alt colorme"></i> &nbsp; Đăng xuất
+						</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- shop-filter end -->
+</div>

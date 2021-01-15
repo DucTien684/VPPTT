@@ -1,0 +1,475 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
+<meta charset="UTF-8">
+<title>vvpThịnh Vượng - Thanh toán</title>
+<head th:replace="~{/user/head :: head-fragment}">
+
+</head>
+
+<body class="home-5">
+
+	<!-- header start -->
+	<header th:replace="~{/user/header :: header-fragment}"> </header>
+	<!-- header end -->
+
+	<div class="cart-title-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="car-header-title">
+						<h2 class="colorme">THANH TOÁN</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- breadcrumb-area start -->
+	<div class="breadcrumb-area product-breadcrumb">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="breadcrumb">
+						<ul>
+							<li><a th:href="@{/index}">Trang chủ <i
+									class="fa fa-angle-right"></i>
+							</a></li>
+							<li>Thanh Toán</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- breadcrumb-area end -->
+	<!-- coupon-area start -->
+	<div class="coupon-area" th:unless="*{session.SESSION}">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="coupon-accordion">
+						<!-- ACCORDION START -->
+						<h3>Đã là thành viên? Click để đăng nhập.</h3>
+						<div class="coupon-content">
+							<div class="coupon-info">
+
+								<form onsubmit="return validateFormLogin()"
+									th:action=@{/login-checkout} method="POST" name="loginCheckout"
+									novalidate="novalidate">
+
+									<p class="form-row-first">
+										<label>Email <span class="required">*</span> :
+										</label> <input type="text" class="form-control" name="emailCK"
+											placeholder="Email" /> <span class="removeicon"
+											id="errorEmail"></span>
+									</p>
+									<p class="form-row-last">
+										<label>Mật khẩu <span class="required">*</span> :
+										</label> <input type="password" name="pass" placeholder="Mật khẩu" />
+										<br> <span class="removeicon" id="errorPass"></span>
+									</p>
+									<p class="form-row">
+										<input type="submit" class="btn btn-primary" value="Đăng nhập" />
+									</p>
+									<br> <b style="color: red" th:if="${errorLoginCheck}"
+										th:text="${errorLoginCheck}"></b>
+									<!-- <p class="lost-password">
+										<a href="#">Quên mật khẩu?</a>
+									</p> -->
+								</form>
+							</div>
+						</div>
+						<!-- ACCORDION END -->
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- coupon-area end -->
+	<!-- checkout-area start -->
+	<div class="checkout-area">
+		<div class="container">
+			<div class="row">
+				<form name="checkoutForm1" onsubmit="return validateForm1()"
+					novalidate="novalidate" th:action="@{/checkout}" method="post">
+					<div class="col-lg-6 col-md-6">
+
+						<div class="checkbox-form">
+							<h3>ĐƠN HÀNG CHI TIẾT</h3>
+							<div class="row" th:if="*{session.SESSION}">
+								<div class="col-md-12"
+									th:if="${session.SESSION.SoDiaChi.size() > 0}">
+									<h5>Chọn địa chỉ giao hàng có sẵn bên dưới:</h5>
+									<div class="my-address"
+										th:if="${session.SESSION.SoDiaChi.size() > 0}"
+										th:each="item: ${listSoDiaChi}">
+										<p>
+											<b class="title-address" th:text="${item.hoTen}"></b> <a
+												th:href="@{/updateSoDiaChi/{idSoDiaChi} (idSoDiaChi = ${item.idSoDiaChi})}"><i
+												class="far fa-edit"></i></a>
+										</p>
+										<p>
+											Địa chỉ: <span
+												th:text="${item.diaChiCuThe} + ', ' + 
+												${item.xa} + ', ' + 
+												${item.huyen} + ', ' + 
+												${item.tinh}"></span>
+										</p>
+										<p>
+											Điện thoại: <span th:text="${item.sdt}" id="sdt"></span>
+										</p>
+										<p>
+											<input checked="checked" name="diaChi"
+												th:value="${item.idSoDiaChi}" type="radio" /> <label>Giao
+												đến địa chỉ này</label>
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="row"
+								th:if="${session.SESSION == null || session.SESSION.soDiaChi.size() == 0}">
+
+								<div class="col-md-12">
+									<div class="checkout-form-list">
+										<label>Họ và tên: <span class="required">*</span>
+										</label> <input name="ten" type="text" placeholder="Họ và tên" /> <span
+											class="removeicon" id="nameErr"></span>
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="checkout-form-list">
+										<label>Số điện thoại: <span class="required">*</span>
+										</label> <input name="sdt" type="text" placeholder="09** *** ***" />
+										<span class="removeicon" id="mobileErr"></span>
+									</div>
+								</div>
+								<div class="col-md-6" th:unless="${session.SESSION}">
+									<div class="checkout-form-list">
+										<label>Email: <span class="required">*</span>
+										</label> <input name="email" type="email" placeholder="Abc@gmail.com" />
+										<span class="removeicon" id="emailErr"></span>
+									</div>
+								</div>
+
+								<div class="col-md-12">
+									<div class="checkout-form-list">
+										<label>Địa chỉ: <span class="required">*</span>
+										</label> <input name="diaChi" type="text"
+											placeholder="Địa chỉ cụ thể..." /> <span class="removeicon"
+											id="addressErr"></span>
+									</div>
+								</div>
+
+								<div class="col-md-8">
+									<div class="checkout-form-list">
+										<label>Tỉnh / Thành phố: <span class="required">*</span>
+										</label> <select name="tinh" id="provinceGroup"
+											class="customcheckbox form-control">
+											<option value="" selected="selected">Hãy chọn Tỉnh /
+												Thành phố</option>
+											<option th:each="tinh: ${listProvince}"
+												th:text="${tinh.name}" th:value="${tinh.provinceId}"></option>
+										</select> <span class="removeicon" id="provinceErr"></span>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<div class="checkout-form-list">
+										<label>Quận / Huyện: <span class="required">*</span>
+										</label> <select disabled name="huyen" id="districtProvinceGroup"
+											class="customcheckbox form-control">
+											<option value="" selected="selected">Hãy chọn Quận /
+												Huyện</option>
+											<option id="op" th:each="quan: ${listDistrict}"
+												th:text="${quan.name}" th:value="${quan.districtId}"></option>
+										</select> <span class="removeicon" id="districtErr"></span>
+									</div>
+								</div>
+
+								<div class="col-md-8">
+									<div class="checkout-form-list">
+										<label>Xã / Phường: <span class="required">*</span>
+										</label> <select disabled name="xa" id="wardDistrictProvinceGroup"
+											class="customcheckbox form-control">
+											<option value="">Hãy chọn Xã / Phường</option>
+											<option th:each="xa: ${listWard}" th:text="${xa.name}"
+												th:value="${xa.wardId}"></option>
+										</select> <span class="removeicon" id="wardErr"></span>
+									</div>
+								</div>
+								<!-- <div class="col-md-12" th:unless="*{session.SESSION}">
+									<div class="checkout-form-list create-acc">
+										<input name="addPass" id="cbox" type="checkbox" /> <label>Tạo
+											tài khoản?</label>
+									</div>
+									<div id="cbox_info" class="checkout-form-list create-account">
+
+										<p>Tạo tài khoản bằng cách nhập đầy thủ thông tin bên
+											dưới. Nếu bạn đã là thành viên, vui lòng đăng nhập ở phía bên
+											trên.</p>
+										<div>
+											<label>Mật khẩu <span class="required">*</span>
+											</label> <input name="matKhau" type="password" placeholder="Mật khẩu" />
+											<span class="removeicon" id="passErr"></span>
+										</div>
+										<div class="m-top-10">
+											<label>Xác nhận mật khẩu <span class="required">*</span>
+											</label> <input name="checkMatKhau" type="password" placeholder="Xác nhận mật khẩu" />
+											<span class="removeicon" id="checkPassErr"></span>
+										</div>
+
+									</div>
+
+								</div> -->
+							</div>
+
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<div class="your-order">
+							<h3>Đơn hàng của bạn</h3>
+							<div class="your-order-table table-responsive">
+								<table>
+									<thead>
+										<tr>
+											<th class="product-name"><b>Thông tin</b></th>
+											<th class="product-total"><b>Tổng</b></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="cart_item" th:each="item : ${session.cart}">
+											<td class="product-name"><span
+												th:text="${item.sanPham.tenSP}"> </span> <strong
+												class="product-quantity" th:text="${'×'+item.quantity}">
+													<input name="idSanPham" class="hidden"
+													th:value="${item.sanPham.idSanPham}">
+											</strong></td>
+											<td class="product-total"><span class="amount"
+												th:text="${#numbers.formatCurrency(item.sanPham.giaTien * item.quantity)}"></span>
+												<input name="giaTien" class="hidden"
+												th:value="${item.sanPham.giaTien}"></td>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr class="cart-subtotal">
+											<th>Tổng giá trị</th>
+											<td><span class="amount"
+												th:text="${#numbers.formatCurrency(total)}"></span></td>
+										</tr>
+										<tr class="cart-subtotal">
+											<th>VAT</th>
+											<td><span class="amount">5%</span></td>
+										</tr>
+										<!-- <tr class="shipping">
+											<th>Phí vận chuyển</th>
+											<td>
+												<ul>
+													<li><label
+														th:text="*{ship == 'Miễn phí!'}?'Miễn phí!':${#numbers.formatCurrency(ship)}"></label>
+													</li>
+													<li></li>
+												</ul>
+											</td>
+										</tr> -->
+
+
+										<tr class="discount-rate">
+											<th>Chiết khấu</th>
+											<td>
+												<ul>
+													<li><label
+														th:text="*{discount == 'Không áp dụng!'}?'Không áp dụng!':${#numbers.formatCurrency(discount)}"></label>
+													</li>
+													<li></li>
+												</ul>
+											</td>
+										</tr>
+
+
+										<tr class="order-total">
+											<th>Thành tiền</th>
+											<td><strong> <span class="amount"
+													th:text="${#numbers.formatCurrency(totalMoney)}"></span> <input
+													name="totalMoney" class="hidden" th:value="${totalMoney}">
+											</strong></td>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+							<div class="payment-method">
+
+								<div class="payment-accordion">
+
+									<h3>
+										<i class="fas fa-dollar-sign"></i> Phương thức thanh toán:
+										Tiền mặt.
+									</h3>
+
+								</div>
+								<div class="order-button-payment">
+									<input id="btnSubmit" type="submit" value="Đặt hàng" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- checkout-area end -->
+
+	<!-- footer start -->
+	<footer th:replace="~{/user/footer :: footer-fragment}"> </footer>
+	<!-- footer end -->
+
+	<!-- JS -->
+
+	<!-- jquery js -->
+	<script th:src="@{/user/js/vendor/jquery-1.11.2.min.js}"></script>
+
+	<!-- bootstrap js -->
+	<script th:src="@{/user/js/bootstrap.min.js}"></script>
+
+	<!-- owl.carousel.min js -->
+	<script th:src="@{/user/js/owl.carousel.min.js}"></script>
+
+	<!-- slicknav js -->
+	<script th:src="@{/user/js/jquery.slicknav.js}"></script>
+
+	<!-- countdown js -->
+	<script th:src="@{/user/js/jquery.countdown.min.js}"></script>
+
+	<!-- price-slider js -->
+	<script th:src="@{/user/js/price-slider.js}"></script>
+
+	<!-- jquery.collapse js -->
+	<script th:src="@{/user/js/jquery.collapse.js}"></script>
+
+	<!-- price-slider js -->
+	<script th:src="@{/user/js/price-slider.js}"></script>
+
+	<!-- jquery.scrollUp js -->
+	<script th:src="@{/user/js/jquery.scrollUp.min.js}"></script>
+
+	<!-- Lib js -->
+	<script
+		th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.plugins.min.js}"></script>
+	<script
+		th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+	<script th:src="@{/user/lib/rs-plugin/rs.home.js}"></script>
+
+	<!-- wow js -->
+	<script th:src="@{/user/js/wow.js}"></script>
+	<script>
+		new WOW().init();
+	</script>
+
+	<!-- plugins js -->
+	<script th:src="@{/user/js/plugins.js}"></script>
+
+	<!-- main js -->
+	<script th:src="@{/user/js/main.js}"></script>
+
+	<script th:src="@{/user/js/custom/addSoDiaChi.js}"></script>
+	<script type="text/javascript">
+	$('#provinceGroup').change(function() { 
+		const provinceId = $('#provinceGroup option:selected').val();
+		if (provinceId==="")
+			{
+				$("#districtProvinceGroup").empty();
+				$('#districtProvinceGroup').append($('<option>', { 
+	 	            value: "",
+	 	            text : "Chọn Tỉnh/ Thành phố" 
+	 	        }));
+				$('#districtProvinceGroup').prop('disabled', true);
+				$("#wardDistrictProvinceGroup").empty();
+				 $('#wardDistrictProvinceGroup').append($('<option>', { 
+		 	            value: "",
+		 	            text : "Chọn Xã/ Phường" 
+		 	        }));
+	        	$("#wardDistrictProvinceGroup").prop('disabled', true);
+			}
+		else
+			{
+				$.ajax({
+			        url: 'http://localhost:8083/getDistrict?provinceId=' + provinceId,
+			        type: 'GET',
+			        success: function (listDistrict) {
+			        	$("#districtProvinceGroup").empty();
+			        	$('#districtProvinceGroup').prop('disabled', false);
+			        	listDistrict.unshift({
+			        		districtId: '',
+			        		name: 'Hãy chọn Quận / Huyện'
+			        	});
+			        	$.each(listDistrict, function (index, district) {
+			    	        $('#districtProvinceGroup').append($('<option>', {
+			    	            value: district.districtId,
+			    	            text : district.name 
+			    	        }
+			    	        ));
+			        	});
+			        },
+			        error: function (e) {
+			            console.log(e.message);
+			        }
+			    });
+			}
+		
+	});
+
+	$('#districtProvinceGroup').change(function() { 
+		const districtId = $('#districtProvinceGroup option:selected').val();
+		$.ajax({
+	        url: 'http://localhost:8083/getWard?districtId=' + districtId,
+	        type: 'GET',
+	        success: function (listWard) {
+	        	$("#wardDistrictProvinceGroup").empty();
+	        	$("#wardDistrictProvinceGroup").prop('disabled', false);
+	        	listWard.unshift({
+	        		wardId: '',
+	        		name: 'Hãy chọn Xã / Phường'
+	        	});
+	        	$.each(listWard, function (index, ward) {
+	    	        $('#wardDistrictProvinceGroup').append($('<option>', { 
+	    	            value: ward.wardId,
+	    	            text : ward.name 
+	    	        }));
+	        	});
+	        },
+	        error: function (e) {
+	            console.log(e.message);
+	        }
+	    });
+	});
+	</script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+	<script>
+	var checkoutSuccess = [[${successMessage}]];
+	const swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+		    confirmButton: 'btn btn-success',
+		    cancelButton: 'btn btn-danger'
+		  },
+		  buttonsStyling: false
+		})
+		if(checkoutSuccess){
+			swalWithBootstrapButtons.fire(
+		      'Thông Báo!',
+		      'Đặt hàng thành công!',
+		      'success'
+		    ).then(function(){
+		    	console.log("123");
+		    	window.location.href = '/index';
+		    })
+		}	
+	</script>
+	<!-- Validation -->
+	<script th:src="@{/user/js/custom/validation-form-login-checkout.js}"></script>
+	<script th:src="@{/user/js/checkout.js}"></script> 
+	<!-- <script th:src="@{/user/js/custom/validation-form-checkout.js}"></script> -->
+</body>
+
+
+</html>

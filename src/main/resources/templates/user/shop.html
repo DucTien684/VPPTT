@@ -1,0 +1,400 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
+<meta charset="UTF-8">
+<title>vvpThịnh Vượng - Sản phẩm</title>
+<head th:replace="~{/user/head :: head-fragment}">
+
+</head>
+
+<body class="home-5">
+
+	<!-- header start -->
+	<header th:replace="~{/user/header :: header-fragment}"> </header>
+	<!-- header end -->
+
+	<!-- blog-header-area start -->
+	<div class="shop-header-area m-top-10">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<div class="shop-header-title ">
+						<h1
+							th:text="*{tieuDeView == null}? 'Tất cả sản phẩm' : *{tieuDeView}">
+							Tất cả sản phẩm</h1>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- blog-header-area end -->
+	<!-- breadcrumb-area start -->
+	<div class="breadcrumb-area shop-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb">
+				<ul>
+					<li><a th:href=@{/index}>Trang chủ <i
+							class="fa fa-angle-right"></i>
+					</a></li>
+					<li><a th:href=@{/shop}>Cửa hàng </a> <i
+						class="fa fa-angle-right"></i></li>
+					<li th:each="tenNhomSP: ${nhomView}"><a
+						th:class="${bcNhomConView == null}? 'dis-href': ''"
+						th:href="@{/shop/{idNhom} (idNhom=${tenNhomSP.idNhomSP})}"> <span
+							th:text="${tenNhomSP.name == Null}? 'Tất cả sản phẩm' : ${tenNhomSP.name}"></span>
+					</a></li>
+					<li th:each="bcNhomCon : ${bcNhomConView}"><i
+						class="fa fa-angle-right"></i> <span
+						th:text="${bcNhomCon.name== Null}? '' : ${bcNhomCon.name}"></span>
+					</li>
+
+
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- breadcrumb-area end -->
+	<!-- blog-main-area start -->
+	<div class="blog-main-area">
+		<div class="container">
+			<div class="row">
+				<!-- sidebar start -->
+				<div class="col-lg-3 col-md-3 col-sm-12">
+					<!-- shop-categories start -->
+					<div class="shop-categories shop-space">
+						<h2 class="shop-sidebar-title">
+							<span>Danh mục sản phẩm</span>
+						</h2>
+						<ul class="sidebar-menu">
+							<!-- <li th:each="nhom : ${sp_Nhom_NhomCon}"><a
+								data-toggle="collapse" th:href=" @{#}+${nhom.idNhomSP}"
+								role="button" aria-expanded="false"
+								aria-controls="${nhom.idNhomSP}" th:text="${nhom.tenNhomSP}"></a>
+								<div class="collapse multi-collapse dm_children"
+									th:id="${nhom.idNhomSP}">
+									<ul class="sidebar-menu">
+										<li th:each="nhomCon : ${nhom.sp_NhomCon}"><a
+											th:href="@{/shop/con={idNhomCon} (idNhomCon=${nhomCon.idNhomSPCon})}"
+											th:text="${nhomCon.name}"></a></li>
+									</ul>
+								</div></li> -->
+							<li><a th:href="@{/shop/SPN001}"><span
+									style="position: relative; top: -0px; left: -220px;">Bút</span></a><br />
+							</li>
+							<li><a th:href="@{/shop/SPN002}"><span
+									style="position: relative; top: -0px; left: -225px;">Sổ</span></a><br />
+							</li>
+							<li><a th:href="@{/shop/SPN003}"><span
+									style="position: relative; top: -0px; left: -130px;">Cặp
+										File - Tài Liệu</span></a><br /></li>
+							<li><a th:href="@{/shop/SPN004}"><span
+									style="position: relative; top: -0px; left: -140px;">Giấy
+										Văn Phòng</span></a><br /></li>
+							<li><a th:href="@{/shop/SPN005}"><span
+									style="position: relative; top: -0px; left: -140px;">Sản
+										Phẩm Khác</span></a></li>
+
+						</ul>
+					</div>
+					<!-- shop-categories end -->
+					<!-- shop-filter start -->
+					<div class="shop-filter shop-space">
+						<h2 class="shop-sidebar-title">
+							<span>Lọc theo giá</span>
+						</h2>
+						<div class="info_widget">
+							<div class="price_filter">
+								<ul class="sidebar-menu">
+									<li><a href="/shop/price=50-">Dưới 50.000 vnđ</a> <!-- <span> (17)</span> -->
+									</li>
+									<li><a href="/shop/price=50-100">50.000 vnđ - 100.000
+											vnđ</a></li>
+									<li><a href="/shop/price=100-200">100.000 vnđ -
+											200.000 vnđ</a></li>
+									<li><a href="/shop/price=200-500">200.000 vnđ -
+											500.000 vnđ</a></li>
+									<li><a href="/shop/price=500-700">500.000 vnđ -
+											700.000 vnđ</a></li>
+									<li><a href="/shop/price=-700">Trên 700.000 vnđ</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- shop-filter end -->
+
+					<!-- shop-featured start -->
+					<div class="shop-featured shop-space">
+						<h2 class="shop-sidebar-title">
+							<span>Sản phẩm đặc sắc</span>
+						</h2>
+						<div class="shop-product" th:each="spds : ${spDacSacView}">
+							<div class="shop-pro-img">
+								<a th:href="@{/product?id={id} (id=${spds.idSanPham})}"> <img
+									th:src="@{'/user/img/'+${spds.hinhAnh}}" alt="" />
+								</a>
+							</div>
+							<br>
+							<div class="shop-pro-content myshop-pro-content">
+								<b class="shop-pro-name font-size-12"> <a
+									th:href="@{/product?id={id} (id=${spds.idSanPham})}"
+									th:text="${spds.tenSP}"></a>
+								</b>
+								<div class="shop-price">
+									<span class="shop-new"
+										th:text="${#numbers.formatCurrency(spds.giaTien)}"></span>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<!-- shop-featured end -->
+				</div>
+				<!-- sidebar end -->
+				<div th:if="${totalProduct == 0}"
+					class="col-lg-9 col-md-9 col-sm-12">
+
+					<div class="container-fluid">
+						<div class="c-404-sp">
+							<h1>Hiện chưa có mặt hàng này!</h1>
+
+						</div>
+					</div>
+
+				</div>
+				<!-- not fount item -->
+				<div th:unless="${totalProduct == 0}"
+					class="col-lg-9 col-md-9 col-sm-12">
+					<div class="row">
+						<!-- toolbar start -->
+						<div class="col-md-12 col-sm-12">
+							<div class="toolbar">
+
+								<div class="page-number" role="nav">
+									<ul class="pagination">
+										<li
+											th:class="${currentIndex == 1}? 'page-item disabled' : 'page-item'">
+											<a class="page-link" th:href="@{|${baseUrlPaging}${1}|}">First</a>
+										</li>
+										<li
+											th:class="${currentIndex == 1}? 'page-item disabled': 'page-item' ">
+											<a class="page-link" aria-label="Previous"
+											th:href="@{|${baseUrlPaging}${currentIndex - 1}|}"
+											title='Go to previous page'><span aria-hidden="true">«</span>
+												<span class="sr-only">Previous</span></a>
+										</li>
+										<li th:each="item : ${#numbers.sequence(beginIndex,endIndex)}"
+											th:class="${item == currentIndex ? 'page-item active' :'page-item' }">
+											<a class="page-link" th:href="@{|${baseUrlPaging}${item}|}">
+												<span th:text='${item}'>1</span>
+										</a>
+										</li>
+										<li
+											th:class="${currentIndex == totalPageCount}? 'page-item disabled': 'page-item'">
+											<a class="page-link" aria-label="Next"
+											th:href="@{|${baseUrlPaging}${currentIndex + 1}|}"
+											title='Go to next page'><span aria-hidden="true">»</span>
+												<span class="sr-only">Next</span></a>
+										</li>
+										<li
+											th:class="${currentIndex == totalPageCount}? 'page-item disabled':'page-item'">
+											<a class="page-link"
+											th:href="@{|${baseUrlPaging}${totalPageCount}|}">Last</a>
+										</li>
+									</ul>
+								</div>
+								<div class="show-result">
+									<p>
+										Hiển thị <span th:text="${beginSP}"></span> - <span
+											th:text="${endSP}"></span> trong <span
+											th:text="${totalProduct}"></span> kết quả
+									</p>
+								</div>
+								<div class="toolbar-form">
+									<form action="#">
+										<div class="tolbar-select">
+											<p>Sắp xếp theo</p>
+											<select onChange="window.location.href=this.value">
+												<option value="">Sắp xếp</option>
+												<option th:value="${baseUrlSort} + 'ngayDang,desc'"
+													th:selected="${#strings.equals(param.sort,'ngayDang,desc')} ? true : false">Sắp
+													xếp ban đầu</option>
+												<option th:value="${baseUrlSort} + 'tenSP,asc'"
+													th:selected="${#strings.equals(param.sort,'tenSP,asc')} ? true : false">Tên:
+													A đến Z</option>
+												<option th:value="${baseUrlSort} + 'tenSP,desc'"
+													th:selected="${#strings.equals(param.sort,'tenSP,desc')} ? true : false">Tên:
+													Z đến A</option>
+												<option th:value="${baseUrlSort} + 'giaTien,asc'"
+													th:selected="${#strings.equals(param.sort,'giaTien,asc')} ? true : false">Giá:
+													thấp đến cao</option>
+												<option th:value="${baseUrlSort} + 'giaTien,desc'"
+													th:selected="${#strings.equals(param.sort,'giaTien,desc')} ? true : false">Giá:
+													cao đến thấp</option>
+											</select>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- toolbar end -->
+						<!-- shop-product-details start -->
+						<div class="shop-product-details" id="dataShop-loading">
+							<!-- single-features start -->
+							<div class="col-md-4 col-sm-4"
+								th:each="sanPham : ${allSanPham.content}">
+								<div class="single-features boder-product">
+									<div class="product-img">
+										<a th:href="@{/product?id={id} (id=${sanPham.idSanPham})}"
+											class="custom-a-shop"> <img class="first-img"
+											th:src="@{'/user/img/'+${sanPham.hinhAnh}}" alt="" />
+										</a> <a
+											th:class="${sanPham.soLuongConLai == 0}? 'modal-view c-hethang' : 'modal-view hidden'">HẾT
+											HÀNG! </a>
+										<div class="action-buttons m-left-20">
+											<a
+												th:class="${sanPham.soLuongConLai == 0}? 'add-to-cart c-disabled' : 'add-to-cart'"
+												th:href="${'/cart/buy/'+sanPham.idSanPham}"> <i
+												class="fa fa-shopping-cart"></i> <span>Thêm vào giỏ</span>
+											</a>
+										</div>
+									</div>
+									<div class="product-content m-left-20 ">
+										<b class="font-size-12"> <a
+											th:href="@{/product?id={id} (id=${sanPham.idSanPham})}"
+											th:text="${sanPham.tenSP}"></a>
+										</b> <span class="pro-price"
+											th:text="${#numbers.formatCurrency(sanPham.giaTien)}"></span>
+									</div>
+								</div>
+							</div>
+							<!-- single-features end -->
+
+							<!-- toolbar start -->
+							<div class="col-md-12 col-sm-12">
+
+								<div class="toolbar">
+
+									<div class="page-number" role="nav">
+										<ul class="pagination">
+											<li
+												th:class="${currentIndex == 1}? 'page-item disabled' : 'page-item'">
+												<a class="page-link" th:href="@{|${baseUrlPaging}${1}|}">First</a>
+											</li>
+											<li
+												th:class="${currentIndex == 1}? 'page-item disabled': 'page-item' ">
+												<a class="page-link" aria-label="Previous"
+												th:href="@{|${baseUrlPaging}${currentIndex - 1}|}"
+												title='Go to previous page'><span aria-hidden="true">«</span>
+													<span class="sr-only">Previous</span></a>
+											</li>
+											<li
+												th:each="item : ${#numbers.sequence(beginIndex,endIndex)}"
+												th:class="${item == currentIndex ? 'page-item active' :'page-item' }">
+												<a class="page-link" th:href="${baseUrlPaging + item}">
+													<span th:text='${item}'>1</span>
+											</a>
+											</li>
+											<li
+												th:class="${currentIndex == totalPageCount}? 'page-item disabled': 'page-item'">
+												<a class="page-link" aria-label="Next"
+												th:href="@{|${baseUrlPaging}${currentIndex + 1}|}"
+												title='Go to next page'><span aria-hidden="true">»</span>
+													<span class="sr-only">Next</span></a>
+											</li>
+											<li
+												th:class="${currentIndex == totalPageCount}? 'page-item disabled':'page-item'">
+												<a class="page-link"
+												th:href="@{|${baseUrlPaging}${totalPageCount}|}">Last</a>
+											</li>
+										</ul>
+									</div>
+									<div class="show-result">
+										<p>
+											Hiển thị <span th:text="${beginSP}"></span> - <span
+												th:text="${endSP}"></span> trong <span
+												th:text="${totalProduct}"></span> kết quả
+										</p>
+									</div>
+									<div class="toolbar-form">
+										<form action="#">
+											<div class="tolbar-select">
+												<p>Sắp xếp theo</p>
+												<select onChange="window.location.href=this.value">
+													<option value="">Sắp xếp</option>
+													<option th:value="${baseUrlSort} + 'ngayDang,desc'"
+														th:selected="${#strings.equals(param.sort,'ngayDang,desc')} ? true : false">Sắp
+														xếp ban đầu</option>
+													<option th:value="${baseUrlSort} + 'tenSP,asc'"
+														th:selected="${#strings.equals(param.sort,'tenSP,asc')} ? true : false">Tên:
+														A đến Z</option>
+													<option th:value="${baseUrlSort} + 'tenSP,desc'"
+														th:selected="${#strings.equals(param.sort,'tenSP,desc')} ? true : false">Tên:
+														Z đến A</option>
+													<option th:value="${baseUrlSort} + 'giaTien,asc'"
+														th:selected="${#strings.equals(param.sort,'giaTien,asc')} ? true : false">Giá:
+														thấp đến cao</option>
+													<option th:value="${baseUrlSort} + 'giaTien,desc'"
+														th:selected="${#strings.equals(param.sort,'giaTien,desc')} ? true : false">Giá:
+														cao đến thấp</option>
+												</select>
+											</div>
+										</form>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- toolbar end -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- blog-main-area end -->
+
+	<!-- footer start -->
+	<footer th:replace="~{/user/footer :: footer-fragment}"> </footer>
+	<!-- footer end -->
+
+	<!-- JS -->
+
+	<!-- jquery js -->
+	<script th:src="@{/user/js/vendor/jquery-1.11.2.min.js}"></script>
+
+	<!-- bootstrap js -->
+	<script th:src="@{/user/js/bootstrap.min.js}"></script>
+
+	<!-- owl.carousel.min js -->
+	<script th:src="@{/user/js/owl.carousel.min.js}"></script>
+
+	<!-- slicknav js -->
+	<script th:src="@{/user/js/jquery.slicknav.js}"></script>
+
+	<!-- countdown js -->
+	<script th:src="@{/user/js/jquery.countdown.min.js}"></script>
+
+	<!-- price-slider js -->
+	<script th:src="@{/user/js/price-slider.js}"></script>
+
+	<!-- jquery.scrollUp js -->
+	<script th:src="@{/user/js/jquery.scrollUp.min.js}"></script>
+
+	<!-- Lib js -->
+	<script
+		th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.plugins.min.js}"></script>
+	<script
+		th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+	<script th:src="@{/user/lib/rs-plugin/rs.home.js}"></script>
+
+	<!-- plugins js -->
+	<script th:src="@{/user/js/plugins.js}"></script>
+
+	<!-- main js -->
+	<script th:src="@{/user/js/main.js}"></script>
+
+	<!-- https://sweetalert2.github.io/ -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+</body>
+
+
+</html>

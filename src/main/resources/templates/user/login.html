@@ -1,0 +1,269 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
+<meta charset="UTF-8">
+
+<head>
+<!-- Basic page needs
+            ============================================ -->
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>vvpThịnh Vượng - Đăng nhập</title>
+<meta name="description" content="">
+
+<!-- Mobile specific metas
+            ============================================ -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Font
+            ============================================ -->
+<link
+	th:href="@{http://fonts.googleapis.com/css?family=Montserrat:400,700}"
+	rel='stylesheet' type='text/css'>
+<link
+	th:href="@{https://fonts.googleapis.com/css?family=Pacifico&display=swap}"
+	rel="stylesheet">
+<!-- Favicon
+            ============================================ -->
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/user/img/favicon.ico}">
+<link rel="stylesheet"
+	th:href="@{https://use.fontawesome.com/releases/v5.7.0/css/all.css}"
+	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+	crossorigin="anonymous">
+
+<!-- CSS  -->
+
+<!-- Bootstrap CSS
+            ============================================ -->
+<link rel="stylesheet" th:href="@{/user/css/bootstrap.min.css}">
+
+<!-- owl.carousel CSS
+            ============================================ -->
+<link rel="stylesheet" th:href="@{/user/css/owl.carousel.css}">
+
+<!-- owl.theme CSS
+            ============================================ -->
+<link rel="stylesheet" th:href="@{/user/css/owl.theme.css}">
+
+<!-- owl.transitions CSS
+            ============================================ -->
+<link rel="stylesheet" th:href="@{/user/css/owl.transitions.css}">
+
+<!-- font-awesome CSS
+            ============================================ -->
+<link rel="stylesheet" th:href="@{/user/css/font-awesome.min.css}">
+
+<!-- animate CSS
+            ============================================ -->
+<link rel="stylesheet" th:href="@{/user/css/animate.css}">
+
+<!-- slicknav CSS
+            ============================================ -->
+<link rel="stylesheet" th:href="@{/user/css/slicknav.css}">
+
+<!-- rs-plugin CSS
+            ============================================ -->
+<link th:href="@{/user/lib/rs-plugin/css/settings.css}" rel="stylesheet" />
+
+<!-- normalize CSS
+            ============================================ -->
+<link rel="stylesheet" th:href="@{/user/css/normalize.css}">
+
+<!-- home-5-color CSS
+            ============================================ -->
+<link rel="stylesheet" th:href="@{/user/css/home-5-color.css}">
+
+<!-- main CSS
+            ============================================ -->
+<link rel="stylesheet" th:href="@{/user/css/main.css}">
+
+<!-- style CSS
+            ============================================ -->
+<link rel="stylesheet" th:href="@{/user/css/style.css}">
+<link rel="stylesheet" th:href="@{/user/css/my-style.css}">
+<!-- responsive CSS
+            ============================================ -->
+<link rel="stylesheet" th:href="@{/user/css/responsive.css}">
+
+<!-- CSS Login ============================================ -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/user/login/css/util.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/user/login/css/main.css}">
+<!-- CSS Login ============================================ -->
+
+<!-- modernizr js
+            ============================================ -->
+<script th:src="@{/user/js/vendor/modernizr-2.8.3.min.js}"></script>
+</head>
+
+<body class="home-5">
+
+	<!-- header start -->
+	<header th:replace="~{/user/header :: header-fragment}"> </header>
+	<!-- header end -->
+
+	<div class="container-login100">
+		<div class="wrap-login100">
+
+			<div class="login100-pic js-tilt" data-tilt>
+				<img th:src="@{/user/login/img/img-01.png}" alt="IMG">
+			</div>
+
+			<form action="/login" method="POST"
+				class="login100-form validate-form">
+
+				<span class="login100-form-title">ĐĂNG NHẬP</span> <b
+					style="color: red" th:if="${error != null}" th:text="${error}"></b>
+				<div class="wrap-input100 validate-input"
+					data-validate="Vui lòng nhập đúng định dạng: ex@abc.xyz">
+					<input class="input100" type="email" name="email"
+						required="required" placeholder="Email"
+						th:value="*{session.email}"> <span class="focus-input100"></span>
+					<span class="symbol-input100"> <i class="fa fa-envelope"
+						aria-hidden="true"></i>
+					</span>
+				</div>
+
+				<div class="wrap-input100 validate-input"
+					data-validate="Vui lòng nhập mật khẩu:">
+					<input class="input100" type="password" name="pass"
+						required="required" placeholder="Password"> <span
+						class="focus-input100"></span> <span class="symbol-input100">
+						<i class="fa fa-lock" aria-hidden="true"></i>
+					</span>
+				</div>
+
+				<div class="container-login100-form-btn">
+					<button class="login100-form-btn">Đăng nhập</button>
+				</div>
+
+				<div class="text-center p-t-12">
+					<span class="txt1"> Quên </span> <a data-toggle="modal"
+						data-target="#exampleModal" class="txt2" href=""> mật khẩu? </a>
+				</div>
+
+				<div class="text-center p-t-50">
+					<a class="txt2" th:href="@{/register}"> Tạo tài khoản mới
+						&nbsp;<i class="fas fa-angle-double-right" aria-hidden="true"></i>
+					</a>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Forgot password -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Lấy lại mật
+						khẩu</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close" style="position: relative; top: -18px; left: 0px;">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form name="checkForm" onsubmit="return validateForm()"
+					action="/forGotPass" method="POST">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">Nhập
+								email của bạn:</label> <input name="emailForgot" type="text"
+								class="form-control" id="recipient-name">
+							<span class="removeicon" id="emailErr"></span><br/>
+							<b style="color: red" th:text="${errorEmail}"></b>
+						</div>
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Hủy</button>
+						<button type="submit" class="btn btn-primary">Lấy lại mật
+							khẩu</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- footer start -->
+	<footer th:replace="~{/user/footer :: footer-fragment}"> </footer>
+	<!-- footer end -->
+
+</body>
+<!-- JS -->
+
+<!-- jquery js -->
+<script th:src="@{/user/js/vendor/jquery-1.11.2.min.js}"></script>
+
+<!-- bootstrap js -->
+<script th:src="@{/user/js/bootstrap.min.js}"></script>
+
+<!-- owl.carousel.min js -->
+<script th:src="@{/user/js/owl.carousel.min.js}"></script>
+
+<!-- slicknav js -->
+<script th:src="@{/user/js/jquery.slicknav.js}"></script>
+
+<!-- countdown js -->
+<script th:src="@{/user/js/jquery.countdown.min.js}"></script>
+
+<!-- price-slider js -->
+<script th:src="@{/user/js/price-slider.js}"></script>
+
+<!-- jquery.scrollUp js -->
+<script th:src="@{/user/js/jquery.scrollUp.min.js}"></script>
+
+<!-- Lib js -->
+<script
+	th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.plugins.min.js}"></script>
+<script
+	th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+<script th:src="@{/user/lib/rs-plugin/rs.home.js}"></script>
+
+<!-- plugins js -->
+<script th:src="@{/user/js/plugins.js}"></script>
+
+<!-- main js -->
+<script th:src="@{/user/js/main.js}"></script>
+
+
+<!-- Script Login -->
+<script th:src="@{/user/login/contactform/contactform.js}"></script>
+<script th:src="@{/user/login/lib/tilt/tilt.jquery.min.js}"></script>
+<script>
+	$('.js-tilt').tilt({
+		scale : 1.1
+	})
+</script>
+
+<!-- Forot password -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script>
+	var sendMailToTakePass = [[${sendMailToTakePass}]];
+	const swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+		    confirmButton: 'btn btn-success',
+		    cancelButton: 'btn btn-danger'
+		  },
+		  buttonsStyling: false
+		})
+		if(sendMailToTakePass){
+			swalWithBootstrapButtons.fire(
+		      'Thông Báo!',
+		      'Một mật khẩu mới đã được gửi đến email của bạn!',
+		      'success'
+		    ).then(function(){
+		    	window.location.href = '/login';
+		    })
+		}	
+</script>
+
+<!-- Script Login -->
+
+<!-- Validation -->
+<script th:src="@{/user/js/custom/validation-form-forgotPassword.js}"></script>
+</body>
+
+</html>

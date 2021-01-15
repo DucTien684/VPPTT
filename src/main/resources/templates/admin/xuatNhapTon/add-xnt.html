@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Tạo phiếu xuất nhập tồn</title>
+
+<!-- Custom fonts for this template-->
+<link th:href="@{/admin/vendor/fontawesome-free/css/all.min.css}"
+	rel="stylesheet" type="text/css">
+
+<!-- Page level plugin CSS-->
+<link th:href="@{/admin/vendor/datatables/dataTables.bootstrap4.css}"
+	rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link th:href="@{/admin/css/sb-admin.css}" rel="stylesheet">
+
+<link th:href="@{/admin/css/my-style.css}" rel="stylesheet">
+
+<link
+	href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+	rel="stylesheet">
+<style type="text/css">
+#dataTable-remove-sp {
+	display: none
+}
+;
+</style>
+
+</head>
+
+<body id="page-top">
+
+	<nav th:replace="~{/admin/header:: header-fragment}"></nav>
+
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<ul th:replace="~{/admin/sidebar :: sidebar-fragment}">
+
+		</ul>
+
+		<div id="content-wrapper">
+
+			<div class="container-fluid">
+
+				<!-- Breadcrumbs-->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a th:href="@{/admin/index}">Trang
+							chủ</a></li>
+					<li class="breadcrumb-item"><a th:href="@{/admin/XNT}">Xuất
+							nhập tồn</a></li>
+					<li class="breadcrumb-item active">Tạo phiếu xuất nhập tồn</li>
+				</ol>
+
+				<!-- DataTables Example -->
+				<div class="card mb-3">
+					<div class="card-header form-inline">
+						<i class="far fa-plus-square"></i> <b>Tạo phiếu xuất nhập tồn</b>
+						<a class="m-bottom-35"> </a>
+					</div>
+					<div class="card-body">
+						<form>
+							<button class="btn btn-primary btn-right">
+								<i class="fas fa-plus-circle"></i>Thêm mới
+							</button>
+							<br /> <br />
+							<div class="form-row">
+								<!-- <div class="form-group col-md-6">
+									<label for="inputPhieu">ID Phiếu</label> <input type="text"
+										class="form-control" id="inputIDPhieu">
+								</div> -->
+								<div class="form-group col-md-12">
+									<label for="NguoiLap">Người Lập: <span
+										style="color: red;">*</span></label> <select class="form-control"
+										id="nguoiLap">
+										<option selected>Chose...</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+									</select>
+								</div>
+
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="inputNT">Ngày Tạo: <span style="color: red;">*</span></label>
+									<input type="text" class="form-control" id="inputNT">
+								</div>
+								<div class="form-group col-md-6">
+									<label for="TrangThai">Trạng Thái: <span
+										style="color: red;">*</span></label> <select class="form-control"
+										id="TrangThai">
+										<option selected>Chose...</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-12">
+									<label for="inputDC">Địa Chỉ: <span style="color: red;">*</span></label>
+									<input type="text" class="form-control" id="inputDC">
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="inputTGBD">Thời Gian Bắt Đầu: </label> <input
+										type="date" class="form-control" id="inputTGBD">
+								</div>
+								<div class="form-group col-md-6">
+									<label for="inputTGKT">Thời Gian Kết Thúc: </label> <input
+										type="date" class="form-control" id="inputTGKT">
+								</div>
+							</div>
+							<hr />
+							<br />
+							<div class="form-row">
+
+								<div class="form-group col-md-6">
+									<label for="TSP"> Tên Sản Phẩm: <span
+										style="color: red;">*</span></label> <select class="form-control"
+										id="TSP">
+										<option selected>Chose...</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+									</select>
+								</div>
+								<div class="form-group col-md-6">
+									<label for="inputDG">Đơn Giá Nhập: <span
+										style="color: red;">*</span></label> <input type="text"
+										class="form-control" id="inputDG">
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="DVT"> Đơn Vị Tính: <span style="color: red;">*</span></label>
+									<select class="form-control" id="DVT" disabled="disabled">
+										<option selected>Chose...</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+									</select>
+								</div>
+								<div class="form-group col-md-6">
+									<label for="inputDGX">Đơn Giá Xuất: <span
+										style="color: red;">*</span></label> <input type="text"
+										class="form-control" id="inputDGX">
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="inputSLNTK">Số Lượng Nhập Trong Kỳ: <span
+										style="color: red;">*</span></label> <input type="text"
+										class="form-control" id="inputSLNTK">
+								</div>
+								<div class="form-group col-md-6">
+									<label for="inputDHCT">ID Đơn Hàng Chi Tiết: </label> <input
+										type="text" class="form-control" id="inputDHCT">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputSLXTK">Số Lượng Xuất Trong Kỳ: <span
+									style="color: red;">*</span></label> <input type="text"
+									class="form-control" id="inputSLXTK">
+							</div>
+						</form>
+						<button class="btn btn-primary btn-left">
+							<i class="far fa-edit"></i>Cập nhật
+						</button>
+						<br /> <br />
+						<div class="form-group">
+							<div class="table-responsive">
+								<table class="table table-bordered" width="100%" cellspacing="0">
+									<thead>
+										<tr>
+											<th style="width: 10px;">#</th>
+											<!-- <th style="width: 30px;">ID PHIẾU</th> -->
+											<th style="width: 300px;">TÊN SẢN PHẨM</th>
+											<th style="width: 100px;">ĐVT</th>
+											<th style="width: 20px;">SL TỒN ĐẦU KỲ</th>
+											<th style="width: 20px;">SL NHẬP TRONG KỲ</th>
+											<th style="width: 20px;">SL XUẤT TRONG KỲ</th>
+											<th style="width: 20px;">SL TỒN CUỐI KỲ</th>
+											<th style="width: 130px;">ĐG NHẬP</th>
+											<th style="width: 130px;">ĐG XUẤT</th>
+											<th style="width: 10px;">ID ĐH CHI TIẾT</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th style="width: 10px;">#</th>
+											<!-- <th style="width: 30px;">ID PHIẾU</th> -->
+											<th style="width: 300px;">TÊN SẢN PHẨM</th>
+											<th style="width: 100px;">ĐVT</th>
+											<th style="width: 20px;">SL TỒN ĐẦU KỲ</th>
+											<th style="width: 20px;">SL NHẬP TRONG KỲ</th>
+											<th style="width: 20px;">SL XUẤT TRONG KỲ</th>
+											<th style="width: 20px;">SL TỒN CUỐI KỲ</th>
+											<th style="width: 130px;">ĐG NHẬP</th>
+											<th style="width: 130px;">ĐG XUẤT</th>
+											<th style="width: 10px;">ID ĐH CHI TIẾT</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										<tr>
+											<td></td>
+											<!-- <td>2</td> -->
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+			<!-- Sticky Footer -->
+			<footer th:replace="~{/admin/footer :: footer-fragment}"> </footer>
+		</div>
+		<!-- /.content-wrapper -->
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-double-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Sẵn sàng rời
+						đi?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Chọn "Đăng xuất" bên dưới nếu bạn đã
+					sẵn sàng kết thúc phiên hiện tại của mình.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Hủy</button>
+					<a class="btn btn-primary" th:href="@{/admin/login}">Đăng xuất</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript-->
+	<script th:src="@{/admin/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/admin/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script th:src="@{/admin/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+	<!-- Page level plugin JavaScript-->
+	<script th:src="@{/admin/vendor/chart.js/Chart.min.js}"></script>
+	<script th:src="@{/admin/vendor/datatables/jquery.dataTables.js}"></script>
+	<script th:src="@{/admin/vendor/datatables/dataTables.bootstrap4.js}"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script th:src="@{/admin/js/sb-admin.min.js}"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+	<!-- Demo scripts for this page-->
+	<script th:src="@{/admin/js/demo/datatables-demo.js}"></script>
+	<script th:src="@{/admin/js/demo/chart-area-demo.js}"></script>
+
+</body>
+
+</html>

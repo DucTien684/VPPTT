@@ -1,0 +1,62 @@
+.nameLogo {
+	font-size: 1.5rem;
+	color: #fff;
+	font-family: "Pacifico", monospace;
+}
+
+i{
+	margin-right: 3px;
+}
+
+.check-button{
+	margin-right: 5px;
+    padding: 1px 7px 2px;
+    font-size: 15px;
+    border-radius: 3px;
+}
+
+.dropdown-menu a:hover{
+	background-color: #E6E6E6;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.firstLabel{
+    width: 120px;
+    text-align: right !important;
+    vertical-align: middle;
+    float: left;
+    line-height: 1;
+    padding: 10px 12px 10px 0;
+    box-sizing: border-box;
+}
+
+.custom-right{
+	position:relative;
+	left:95%;
+}
+
+.btn-right{
+	text-align: right;
+  position: absolute;
+ 
+  right: 20px;
+}
+
+.p-bottom-15{
+	padding-bottom: 15px;
+}
+
+.m-bottom-35{
+	margin-bottom: 35px;
+}
+
+.cus-upload img{
+	 
+	max-width: 180px;
+}
+
+.cus-upload input[type=file]{
+	padding: 10px;
+	background: #E6E6E6;
+}

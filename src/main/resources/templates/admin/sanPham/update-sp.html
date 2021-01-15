@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
+<meta charset="UTF-8">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Chỉnh sửa sản phẩm</title>
+
+<!-- Custom fonts for this template-->
+<link th:href="@{/admin/vendor/fontawesome-free/css/all.min.css}"
+	rel="stylesheet" type="text/css">
+
+<!-- Page level plugin CSS-->
+<link th:href="@{/admin/vendor/datatables/dataTables.bootstrap4.css}"
+	rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link th:href="@{/admin/css/sb-admin.css}" rel="stylesheet">
+
+<link th:href="@{/admin/css/my-style.css}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+	<nav th:replace="~{/admin/header:: header-fragment}"></nav>
+
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<ul th:replace="~{/admin/sidebar :: sidebar-fragment}">
+
+		</ul>
+
+		<div id="content-wrapper">
+
+			<div class="container-fluid">
+
+				<!-- Breadcrumbs-->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a th:href="@{/admin/index}">Trang
+							chủ</a></li>
+					<li class="breadcrumb-item"><a th:href="@{/admin/sanPham}">Sản
+							phẩm</a></li>
+					<li class="breadcrumb-item active">Chỉnh sửa sản phẩm</li>
+				</ol>
+
+				<!-- DataTables Example -->
+				<div class="card mb-3">
+					<div class="card-header form-inline">
+						<i class="fas fa-edit"></i><b> Chỉnh sửa sản phẩm</b>
+					</div>
+					<div class="card-body">
+						<form name="checkFormUpdateSP"
+							onsubmit="return validateFormUpdateSP()"
+							th:action="@{/admin/updateSP/{idSanPham}(idSanPham = *{idSanPham})}"
+							enctype="multipart/form-data" th:object="${sanPham}"
+							method="post">
+							<div class="col-sm-12 ">
+								<div id="cbox_info" class="create-account">
+									<div class="row p-bottom-15">
+										<div class="col-md-6">
+											<div class="checkout-form-list">
+												<label>ID Sản phẩm: </label> <input th:id="*{idSanPham}"
+													type="text" class="form-control" th:field="*{idSanPham}"
+													disabled="disabled" />
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<div class="checkout-form-list">
+												<label>Mã sản phẩm: </label> <input type="text"
+													class="form-control" th:field="*{maSP}" disabled="disabled" />
+											</div>
+										</div>
+									</div>
+									<input id="spNhomDefault" th:value="${spNhomDefault}"
+										disabled="disabled" hidden=""> <input
+										id="spNhomConDefault" th:value="${spNhomConDefault}"
+										disabled="disabled" hidden="">
+									<div class="row p-bottom-15">
+										<div class="col-md-6">
+											<div class="checkout-form-list">
+												<label>Nhóm sản phẩm <span style="color: red;">*</span>
+												</label><select id="productGroup"
+													class="customcheckbox form-control">
+													<!-- <option selected>Choose...</option> -->
+													<option th:each="item: ${listNhom}" th:text="${item.name}"
+														th:value="${item.idNhomSP}" th:id="${item.idNhomSP}">
+														></option>
+												</select>
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<div class="checkout-form-list">
+												<label>Nhóm sản phẩm con <span style="color: red;">*</span>
+												</label> <select id="childrenProductGroup"
+													class="customcheckbox form-control"
+													th:field="*{sp_NhomCon.idNhomSPCon}">
+													<option th:text="Choose" th:value="Choose">Choose...</option>
+													<option th:each="itemSpCon: ${listNhomSpCon}"
+														th:text="${itemSpCon.name}"
+														th:value="${itemSpCon.idNhomSPCon}"
+														th:field="*{sp_NhomCon.idNhomSPCon}"></option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="row p-bottom-15">
+										<div class="col-md-6">
+											<div class="checkout-form-list">
+												<label>Tên sản phẩm: <span style="color: red;">*</span>
+												</label> <input type="text" class="form-control" th:field="*{tenSP}"
+													id="tenSP" name="tenSP" /> <span class="removeicon"
+													id="tenSPErr" style="color: red;"></span>
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<div class="checkout-form-list">
+												<label>Thương hiệu: <span style="color: red;">*</span>
+												</label> <input type="text" class="form-control"
+													th:field="*{thuongHieu}" id="thuongHieu" name="thuongHieu" />
+												<span class="removeicon" id="thuongHieuErr"
+													style="color: red;"></span>
+											</div>
+										</div>
+									</div>
+
+									<div class="row p-bottom-15">
+
+										<div class="col-md-3">
+											<div class="checkout-form-list">
+												<label>Sản xuất tại: <span style="color: red;">*</span>
+												</label> <input type="text" class="form-control"
+													th:field="*{sanXuat}" id="sanXuat" name="sanXuat" /> <span
+													class="removeicon" id="sanXuatErr" style="color: red;"></span>
+											</div>
+										</div>
+
+										<div class="col-md-3">
+											<div class="checkout-form-list">
+												<label>Giá tiền: <span style="color: red;">*</span>
+												</label>
+												<div class="input-group mb-2">
+													<input type="number" class="form-control" value="0" min="0"
+														th:field="*{giaTien}" />
+													<div class="input-group-prepend">
+														<div class="input-group-text">VNĐ</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="checkout-form-list">
+												<label>Số lượng: <span style="color: red;">*</span>
+												</label> <input type="number" class="form-control" value="1" min="1"
+													th:field="*{soLuongConLai}" />
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="checkout-form-list">
+												<label>Đơn vị tính <span style="color: red;">*</span>
+												</label> <select name="" id="" class="customcheckbox form-control "
+													th:field="*{donViTinh}">
+													<!-- <option selected th:text="Choose" th:value="Choose"></option> -->
+													<!-- <option th:text="Quyển" th:value="Quyển"></option>
+													<option th:text="Cây" th:value="Cây"></option>
+													<option th:text="Cái" th:value="Cái"></option> -->
+													<option th:text="Hộp" th:value="Hộp"></option>
+													<option th:text="Xấp" th:value="Xấp"></option>
+													<option th:text="Bộ" th:value="Bộ"></option>
+													<option th:text="Bịch" th:value="Bịch"></option>
+													<!-- <option th:text="Kg" th:value="Kg"></option>
+													<option th:text="Bảng" th:value="Bảng"></option> -->
+													<option th:text="Thùng" th:value="Thùng"></option>
+													<option th:text="Cuốn" th:value="Cuốn"></option>
+													<!-- <option th:text="Chai" th:value="Chai"></option> -->
+													<!-- <option th:text="Ram" th:value="Ram"></option> -->
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="row p-bottom-15">
+										<div class="col-md-6">
+											<div class="checkout-form-list">
+												<label>Nhà cung cấp <span style="color: red;">*</span>
+												</label> <select id="nhaCungCap" class="customcheckbox form-control"
+													th:field="*{nhaCungCap.idNCC}">
+													<!-- <option th:text="Choose" th:value="Choose">Chọn
+														nhà cung cấp</option> -->
+													<option th:each="item: ${listNCC}" th:text="${item.tenNCC}"
+														th:value="${item.idNCC}"></option>
+												</select>
+											</div>
+										</div>
+
+										<!-- <div class="col-md-6">
+											<div class="checkout-form-list">
+												<label>Nhóm sản phẩm con <span style="color: red;">*</span>
+												</label> <select id="childrenProductGroup"
+													class="customcheckbox form-control"
+													th:field="*{sp_NhomCon.idNhomSPCon}">
+													<option th:text="Choose" th:value="Choose">Chọn
+														nhóm sản phẩm con</option>
+													<option th:each="itemSpCon: ${listNhomSpCon}"
+														th:text="${itemSpCon.name}"
+														th:value="${itemSpCon.idNhomSPCon}"></option>
+												</select>
+											</div>
+										</div> -->
+									</div>
+									<div class="row p-bottom-15">
+										<div class="col-md-6 cus-upload">
+											<div class="form-group">
+												<label>Hình ảnh: <span style="color: red;">*</span>
+												</label> <br>
+												<div style="margin-left: 50px;">
+													<img id="blah" th:src="@{'/user/img/'+ *{hinhAnh}}"
+														alt="Your image" />
+												</div>
+												<br> <input type="file" accept="image/*"
+													onchange="readURL(this);" name="file" />
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="checkout-form-list">
+												<label> Thông tin: <span style="color: red;">*</span>
+												</label>
+												<textarea class="form-control " id="validationTextarea"
+													placeholder="Nhập thông tin sản phẩm..." required rows="8"
+													cols="50" th:field="*{thongTin}"></textarea>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="checkout-form-list">
+												<label>Nhân viên thêm sản phẩm: </label> <input type="text"
+													class="form-control" th:field="*{nhanVien.hoTen}"
+													disabled="disabled" />
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="checkout-form-list">
+												<label>Ngày đăng: </label> <input type="text"
+													class="form-control" th:field="*{ngayDang}"
+													disabled="disabled" />
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="checkout-form-list">
+										<button class="btn btn-primary" type="submit">Cập
+											nhật</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- Sticky Footer -->
+			<footer th:replace="~{/admin/footer :: footer-fragment}"> </footer>
+		</div>
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Sẵn sàng rời
+						đi?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Chọn "Đăng xuất" bên dưới nếu bạn đã
+					sẵn sàng kết thúc phiên hiện tại của mình.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Hủy</button>
+					<a class="btn btn-primary" th:href="@{/admin/login}">Đăng xuất</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript-->
+	<script th:src="@{/admin/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/admin/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script th:src="@{/admin/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+	<!-- Page level plugin JavaScript-->
+	<script th:src="@{/admin/vendor/chart.js/Chart.min.js}"></script>
+	<script th:src="@{/admin/vendor/datatables/jquery.dataTables.js}"></script>
+	<script th:src="@{/admin/vendor/datatables/dataTables.bootstrap4.js}"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script th:src="@{/admin/js/sb-admin.min.js}"></script>
+
+	<!-- Demo scripts for this page-->
+	<script th:src="@{/admin/js/demo/datatables-demo.js}"></script>
+	<script th:src="@{/admin/js/demo/chart-area-demo.js}"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+	<script th:src="@{/admin/js/demo/updateSP.js}"></script>
+
+	<script th:src="@{/admin/js/custom/addSP.js}"></script>
+	<script type="text/javascript">
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					$('#blah').attr('src', e.target.result);
+				};
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
+	<script type="text/javascript">
+	var updateSuccess = [[${updateSuccess}]];
+	const swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+		    confirmButton: 'btn btn-success',
+		    cancelButton: 'btn btn-danger'
+		  },
+		  buttonsStyling: false
+		})
+		if(updateSuccess){
+			swalWithBootstrapButtons.fire(
+		      'Thông Báo!',
+		      'Cập nhật sản phẩm thành công',
+		      'success'
+		    ).then(function(){
+		    	window.location.href = '/admin/sanPham';
+		    })
+		};
+	</script>
+
+<!-- Validation Form -->
+	<script th:src="@{/admin/js/custom/validation-form-update-sp.js}"></script>
+</body>
+
+</html>

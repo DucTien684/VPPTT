@@ -1,0 +1,155 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
+<meta charset="UTF-8" http-equiv="refresh"
+	content="5; URL=http://localhost:8083/account_qldh">
+<title>vvpThịnh Vượng - Đơn hàng của tôi</title>
+<head th:replace="~{/user/head :: head-fragment}">
+
+</head>
+
+<body class="home-5">
+
+	<!-- header start -->
+	<header th:replace="~{/user/header :: header-fragment}"> </header>
+	<!-- header end -->
+	<br>
+	<!-- breadcrumb-area start -->
+	<div class="breadcrumb-area shop-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb">
+				<ul>
+					<li><a th:href="@{/index}">Trang chủ <i
+							class="fa fa-angle-right"></i>
+					</a></li>
+					<li>Đơn hàng của tôi</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- breadcrumb-area end -->
+
+	<!-- blog-main-area start -->
+	<div class="blog-main-area">
+		<div class="container">
+			<div class="row">
+				<!-- sidebar start -->
+				<div
+					th:replace="~{/account-user/sidebar :: sidebar-account-fragment}"></div>
+				<!-- sidebar end -->
+
+				<!-- Quan ly don hang-->
+				<div class="col-lg-9 col-md-9 col-sm-12">
+					<!-- shop-filter start -->
+					<div class="shop-filter shop-space myborder">
+						<div class="m-10 f-account-info">
+							<h3 class="colorme">Đơn hàng của tôi</h3>
+							<br>
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col">Mã đơn hàng</th>
+										<th scope="col">Ngày mua</th>
+										<th scope="col">Sản phẩm</th>
+										<th scope="col">Tổng tiền</th>
+										<th scope="col">Trạng thái</th>
+										<th scope="col">Hành động</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="item: ${listDonHang}">
+										<th th:text="${item.idDonHang}"></th>
+										<td
+											th:text="${#dates.format(item.ngayLapDH, 'MM/dd/yyyy HH:mm:ss')}"></td>
+										<td th:text="${item.tenSP}"></td>
+										<td th:text="${#numbers.formatCurrency(item.tongSoTien)}"></td>
+										<td th:text="${item.trangThai}"></td>
+										<td style="text-align: center; verticle-align: middle;"><button
+												class="btn btn-danger check-button remove-sp"
+												th:id="${item.idDonHang}" th:onclick="deleteDHCT(this.id)">
+												<i class="fas fa-trash-alt"></i>
+											</button>
+											<button class="btn btn-info check-button remove-sp"
+												th:id="${item.idDonHang}" th:onclick="deleteDHCT(this.id)">
+												<i class="fas fa-search-dollar"></i>
+											</button></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- Quan ly don hang-->
+			</div>
+		</div>
+	</div>
+	<!-- blog-main-area end -->
+
+	<!-- footer start -->
+	<footer th:replace="~{/user/footer :: footer-fragment}"> </footer>
+	<!-- footer end -->
+
+	<!-- JS -->
+
+	<!-- jquery js -->
+	<script th:src="@{/user/js/vendor/jquery-1.11.2.min.js}"></script>
+
+	<!-- bootstrap js -->
+	<script th:src="@{/user/js/bootstrap.min.js}"></script>
+
+	<!-- owl.carousel.min js -->
+	<script th:src="@{/user/js/owl.carousel.min.js}"></script>
+
+	<!-- slicknav js -->
+	<script th:src="@{/user/js/jquery.slicknav.js}"></script>
+
+	<!-- countdown js -->
+	<script th:src="@{/user/js/jquery.countdown.min.js}"></script>
+
+	<!-- price-slider js -->
+	<script th:src="@{/user/js/price-slider.js}"></script>
+
+	<!-- jquery.scrollUp js -->
+	<script th:src="@{/user/js/jquery.scrollUp.min.js}"></script>
+
+	<!-- Lib js -->
+	<script
+		th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.plugins.min.js}"></script>
+	<script
+		th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+	<script th:src="@{/user/lib/rs-plugin/rs.home.js}"></script>
+
+	<!-- plugins js -->
+	<script th:src="@{/user/js/plugins.js}"></script>
+
+	<!-- main js -->
+	<script th:src="@{/user/js/main.js}"></script>
+
+	<!-- ----------------------------------------- -->
+
+	<!-- Bootstrap core JavaScript-->
+	<script th:src="@{/admin/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/admin/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script th:src="@{/admin/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+	<!-- Page level plugin JavaScript-->
+	<script th:src="@{/admin/vendor/chart.js/Chart.min.js}"></script>
+	<script th:src="@{/admin/vendor/datatables/jquery.dataTables.js}"></script>
+	<script th:src="@{/admin/vendor/datatables/dataTables.bootstrap4.js}"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script th:src="@{/admin/js/sb-admin.min.js}"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+	<!-- Demo scripts for this page-->
+	<script th:src="@{/admin/js/demo/chart-area-demo.js}"></script>
+	<script th:src="@{/user/js/xoaDonHangCuaToi.js}"></script>
+</body>
+
+
+</html>

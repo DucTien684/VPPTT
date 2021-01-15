@@ -1,0 +1,205 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
+
+<title>vvpThịnh Vượng - Liên hệ</title>
+<head th:replace="~{/user/head :: head-fragment}">
+
+</head>
+
+<body class="home-5">
+
+	<!-- header start -->
+	<header th:replace="~{/user/header :: header-fragment}"> </header>
+	<!-- header end -->
+
+	<!-- entry-header-area start -->
+	<div class="entry-header-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<div class="entry-title">
+						<h1>LIÊN HỆ</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- entry-header-area end -->
+	<!-- map-area start -->
+	<div class="map-area">
+		<iframe
+			src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1869.3723017795378!2d106.15589701611465!3d20.434588591036867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ddf7910bd727%3A0xe1d1f1566e429c8a!2zQ8O0bmcgVHkgQ-G7lSBQaOG6p24gVGjGsMahbmcgTeG6oWkgxJDhuqd1IFTGsCBYw6J5IEzhuq9wIMSQaeG7h24gVGjhu4tuaCBWxrDhu6NuZw!5e0!3m2!1svi!2s!4v1606291988808!5m2!1svi!2s"
+			width="75%" height="450" frameborder="0"
+			style="border: 0; margin-top: 15px; margin-left: 190px;"
+			allowfullscreen=""></iframe>
+	</div>
+	<!-- map-area end -->
+	<!-- contact-form-area start -->
+	<div class="contact-form-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="contact-title">GỬI TIN NHẮN CHO CHÚNG TÔI</h1>
+				</div>
+			</div>
+
+			<div class="row">
+
+				<!-- //1 -->
+				<form action="https://www.SnapHost.com/captcha/send.aspx"
+					id="ContactUsCaptchaWebForm" method="post"
+					onsubmit="return ValidateForm(this);" target="_top" novalidate>
+					<input name="skip_WhereToSend" type="hidden"
+						value="hmqstudy8820@gmail.com" /> <input name="skip_SnapHostID"
+						type="hidden" value="5D5ZR7CWNTG4" /> <input
+						name="skip_WhereToReturn" type="hidden"
+						value="https://www.facebook.com/abcasdadasdasdasd" />
+					<input name="skip_Subject" type="hidden"
+						value="Đóng góp ý kiến & phản hồi!" /> <input name="skip_ShowUsersIp"
+						type="hidden" value="1" /> <input name="skip_SendCopyToUser"
+						type="hidden" value="1" />
+
+					<!-- //1 -->
+					<div class="col-lg-6 col-md-6">
+						<div class="row">
+							<div class="inner-form">
+								<div class="col-md-6">
+									<input name="Name" type="text" placeholder="Họ và tên..."
+										class="form-control" /> <span class="removeicon"
+										id="errorName"></span>
+								</div>
+								<div class="col-md-6">
+									<input name="FromEmailAddress" type="email"
+										placeholder="Email..." class="form-control" /> <span
+										class="removeicon" id="errorEmail"></span>
+								</div>
+								<div class="col-md-12" style="margin-top: 30px;">
+									<i>Nhập mã xác nhận*:</i> <input name="skip_CaptchaCode"
+										type="text" style="width: 80px;" maxlength="6" /> <a
+										href="https://www.snaphost.com/captcha/ReadyForms/ContactUsForm.aspx">
+										<img id="CaptchaImage" alt="Contact Us form"
+										title="HTML code for Contact Us form"
+										src="https://www.SnapHost.com/captcha/CaptchaImage.aspx?id=5D5ZR7CWNTG4&ImgType=2" />
+									</a>
+
+								</div>
+								<a href="#" onclick="return ReloadCaptchaImage('CaptchaImage');"
+									style="margin-left: 225px;"> <span style="font-size: 15px;">Đổi
+										ảnh</span>
+								</a> <br> <span style="margin-left: 200px;" class="removeicon"
+									id="skip_CaptchaCode"></span>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 contact-message">
+						<textarea name="Comments" id="message" cols="30" rows="10"
+							placeholder="Nội dung..." class="form-control"></textarea>
+						<span class="removeicon" id="errorComments"></span>
+					</div>
+					<div class="col-md-12">
+						<div class="contact-submit">
+							<input name="skip_Submit" class="btn btn-success" type="submit"
+								value="Gửi đi" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- contact-form-area end -->
+
+	<!-- footer start -->
+	<footer th:replace="~{/user/footer :: footer-fragment}"> </footer>
+	<!-- footer end -->
+
+	<!-- JS -->
+
+	<!-- jquery js -->
+	<script th:src="@{/user/js/vendor/jquery-1.11.2.min.js}"></script>
+
+	<!-- bootstrap js -->
+	<script th:src="@{/user/js/bootstrap.min.js}"></script>
+
+	<!-- owl.carousel.min js -->
+	<script th:src="@{/user/js/owl.carousel.min.js}"></script>
+
+	<!-- slicknav js -->
+	<script th:src="@{/user/js/jquery.slicknav.js}"></script>
+
+	<!-- countdown js -->
+	<script th:src="@{/user/js/jquery.countdown.min.js}"></script>
+
+	<!-- price-slider js -->
+	<script th:src="@{/user/js/price-slider.js}"></script>
+
+	<!-- jquery.scrollUp js -->
+	<script th:src="@{/user/js/jquery.scrollUp.min.js}"></script>
+
+	<!-- Lib js -->
+	<script
+		th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.plugins.min.js}"></script>
+	<script
+		th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+	<script th:src="@{/user/lib/rs-plugin/rs.home.js}"></script>
+
+	<!-- plugins js -->
+	<script th:src="@{/user/js/plugins.js}"></script>
+
+	<!-- main js -->
+	<script th:src="@{/user/js/main.js}"></script>
+
+	<script type="text/javascript">
+		function ValidateForm(frm) {
+
+			if (frm.Name.value == "") {
+				document.getElementById("errorName").innerHTML = '*Vui lòng nhập họ tên!';
+				frm.Name.focus();
+				return false;
+			}
+			if (frm.FromEmailAddress.value == "") {
+				document.getElementById("errorEmail").innerHTML = '*Vui lòng nhập Email!';
+				frm.FromEmailAddress.focus();
+				return false;
+			}
+			if (frm.FromEmailAddress.value.indexOf("@") < 1
+					|| frm.FromEmailAddress.value.indexOf(".") < 1) {
+				document.getElementById("errorEmail").innerHTML = '*Vui lòng nhập đúng định dạng Email!';
+				frm.FromEmailAddress.focus();
+				return false;
+			}
+			if (frm.Comments.value == "") {
+				document.getElementById("errorComments").innerHTML = '*Vui lòng nhập bình luận hoặc câu hỏi!';
+				frm.Comments.focus();
+				return false;
+			}
+			if (frm.skip_CaptchaCode.value == "") {
+				document.getElementById("skip_CaptchaCode").innerHTML = '*Vui lòng nhập mã xác nhận!';
+				frm.skip_CaptchaCode.focus();
+				return false;
+			}
+			if (frm.skip_CaptchaCode.value == document
+					.getElementById("CaptchaImage").value) {
+				document.getElementById("skip_CaptchaCode").innerHTML = '*Sai mã xác nhận!';
+				frm.skip_CaptchaCode.focus();
+				return false;
+			}
+			return true;
+		}
+		function ReloadCaptchaImage(captchaImageId) {
+			var obj = document.getElementById(captchaImageId);
+			var src = '' + obj.src;
+			obj.src = '';
+			var date = new Date();
+			var pos = src.indexOf('&rad=');
+			if (pos >= 0) {
+				src = src.substr(0, pos);
+			}
+			obj.src = src + '&rad=' + date.getTime();
+			return false;
+		}
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
+<meta charset="UTF-8">
+<title>vvpThịnh Vượng - Cập nhật sổ địa chỉ</title>
+<head th:replace="~{/user/head :: head-fragment}">
+
+</head>
+
+<body class="home-5">
+
+	<!-- header start -->
+	<header th:replace="~{/user/header :: header-fragment}"> </header>
+	<!-- header end -->
+	<br>
+	<!-- breadcrumb-area start -->
+	<div class="breadcrumb-area shop-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb">
+				<ul>
+					<li><a th:href="@{/index}">Trang chủ <i
+							class="fa fa-angle-right"></i>
+					</a></li>
+					<li>Sổ địa chỉ</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- breadcrumb-area end -->
+
+	<!-- blog-main-area start -->
+	<div class="blog-main-area">
+		<div class="container">
+			<div class="row">
+				<!-- sidebar start -->
+				<div
+					th:replace="~{/account-user/sidebar :: sidebar-account-fragment}"></div>
+				<!-- sidebar end -->
+
+				<!-- Quản lý account-->
+				<div class="col-lg-9 col-md-9 col-sm-12 myborder"
+					style="width: 73.5% !important">
+					<!-- shop-filter start -->
+					<div class="m-10 f-account-info">
+						<h3 class="colorme">Cập nhật sổ địa chỉ</h3>
+						<form name="checkoutForm2" onsubmit="return validateForm2()"
+							th:action="@{/updateSoDiaChi/{idSoDiaChi}(idSoDiaChi=${soDiaChi.idSoDiaChi})}"
+							th:object="${soDiaChi}" method="post">
+							<div class="col-sm-12 ">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="checkout-form-list">
+											<label>Họ tên: <span style="color: red;">*</span>
+											</label> <input type="text" class="form-control" th:field="*{hoTen}"
+												placeholder="Họ tên" id="ten" name="ten" /> <span
+												class="removeicon" id="nameErr"></span>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="checkout-form-list">
+											<label>Số điện thoại: <span style="color: red;">*</span>
+											</label> <input type="text" class="form-control" th:field="*{sdt}"
+												placeholder="Số điện thoại" id="sdt" name="sdt" /> <span
+												class="removeicon" id="mobileErr"></span>
+										</div>
+									</div>
+
+									<div class="col-md-12">
+										<div class="checkout-form-list">
+											<label>Địa chỉ cụ thể: <span style="color: red;">*</span>
+											</label> <input type="text" class="form-control"
+												th:field="*{diaChiCuThe}" placeholder="Địa chỉ cụ thể"
+												id="diaChi" name="diaChi" /> <span class="removeicon"
+												id="addressErr"></span>
+										</div>
+									</div>
+									<div class="col-md-8">
+										<div class="checkout-form-list">
+											<label>Tỉnh / Thành phố: <span style="color: red;">*</span>
+											</label> <select name="province" id="provinceGroup"
+												class="customcheckbox form-control" th:field="*{tinh}">
+												<option value="" selected="selected">Hãy chọn Tỉnh
+													/ Thành phố</option>
+												<option th:each="tinh: ${listProvince}"
+													th:text="${tinh.name}" th:value="${tinh.provinceId}"
+													th:id="${tinh.provinceId}"></option>
+											</select> <span class="removeicon" id="provinceErr"></span>
+										</div>
+									</div>
+									<div class="col-md-8">
+										<div class="checkout-form-list">
+											<label>Quận / Huyện: <span style="color: red;">*</span>
+											</label> <select disabled name="district" id="districtProvinceGroup"
+												class="customcheckbox form-control" th:field="*{huyen}">
+												<option value="" selected="selected">Hãy chọn Quận
+													/ Huyện</option>
+												<option id="op" th:each="quan: ${listDistrict}"
+													th:text="${quan.name}" th:value="${quan.districtId}"
+													th:id="${quan.districId}"></option>
+											</select> <span class="removeicon" id="districtErr"></span>
+										</div>
+									</div>
+
+									<div class="col-md-8">
+										<div class="checkout-form-list">
+											<label>Xã / Phường: <span style="color: red;">*</span>
+											</label> <select disabled name="ward" id="wardDistrictProvinceGroup"
+												class="customcheckbox form-control" th:field="*{xa}">
+												<option value="">Hãy chọn Xã / Phường</option>
+												<option th:each="xa: ${listWard}" th:text="${xa.name}"
+													th:value="${xa.wardId}" th:id="${xa.wardId}"></option>
+											</select> <span class="removeicon" id="wardErr"></span>
+										</div>
+									</div>
+									<div class="col-md-8">
+										<div class="checkout-form-list">
+											<button class="btn btn-primary" type="submit">Cập
+												nhật</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- blog-main-area end -->
+
+
+	<!-- Modal End -->
+
+
+	<!-- footer start -->
+	<footer th:replace="~{/user/footer :: footer-fragment}"> </footer>
+	<!-- footer end -->
+
+	<!-- JS -->
+
+	<!-- jquery js -->
+	<script th:src="@{/user/js/vendor/jquery-1.11.2.min.js}"></script>
+
+	<!-- bootstrap js -->
+	<script th:src="@{/user/js/bootstrap.min.js}"></script>
+
+	<!-- owl.carousel.min js -->
+	<script th:src="@{/user/js/owl.carousel.min.js}"></script>
+
+	<!-- slicknav js -->
+	<script th:src="@{/user/js/jquery.slicknav.js}"></script>
+
+	<!-- countdown js -->
+	<script th:src="@{/user/js/jquery.countdown.min.js}"></script>
+
+	<!-- price-slider js -->
+	<script th:src="@{/user/js/price-slider.js}"></script>
+
+	<!-- jquery.scrollUp js -->
+	<script th:src="@{/user/js/jquery.scrollUp.min.js}"></script>
+
+	<!-- Lib js -->
+	<script
+		th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.plugins.min.js}"></script>
+	<script
+		th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+	<script th:src="@{/user/lib/rs-plugin/rs.home.js}"></script>
+
+	<!-- plugins js -->
+	<script th:src="@{/user/js/plugins.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+	<!-- main js -->
+	<script th:src="@{/user/js/main.js}"></script>
+	<script th:src="@{/user/js/custom/updateSoDiaChi.js}"></script>
+
+	<!-- Thông báo -->
+	<script type="text/javascript">
+	var updateSuccess = [[${updateSuccess}]];
+	const swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+		    confirmButton: 'btn btn-success',
+		    cancelButton: 'btn btn-danger'
+		  },
+		  buttonsStyling: false
+		})
+		if(updateSuccess){
+			swalWithBootstrapButtons.fire(
+		      'Thông Báo!',
+		      'Cập nhật thành công!',
+		      'success'
+		    ).then(function(){
+		    	window.location.href = '/account_address';
+		    })
+		};
+	</script>
+
+	<!-- Validation -->
+	<script th:src="@{/user/js/custom/validation-form-address1.js}"></script>
+
+</body>
+
+</html>

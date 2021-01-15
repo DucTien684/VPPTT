@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
+<meta charset="UTF-8">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Chỉnh sửa nhà cung cấp</title>
+
+<!-- Custom fonts for this template-->
+<link th:href="@{/admin/vendor/fontawesome-free/css/all.min.css}"
+	rel="stylesheet" type="text/css">
+
+<!-- Page level plugin CSS-->
+<link th:href="@{/admin/vendor/datatables/dataTables.bootstrap4.css}"
+	rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link th:href="@{/admin/css/sb-admin.css}" rel="stylesheet">
+
+<link th:href="@{/admin/css/my-style.css}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+	<nav th:replace="~{/admin/header:: header-fragment}"></nav>
+
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<ul th:replace="~{/admin/sidebar :: sidebar-fragment}">
+
+		</ul>
+
+		<div id="content-wrapper">
+
+			<div class="container-fluid">
+
+				<!-- Breadcrumbs-->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a th:href="@{/admin/index}">Trang
+							chủ</a></li>
+					<li class="breadcrumb-item"><a th:href="@{/admin/nhaCungCap}">Nhà
+							cung cấp</a></li>
+					<li class="breadcrumb-item active">Chỉnh sửa nhà cung cấp</li>
+				</ol>
+
+				<!-- DataTables Example -->
+				<div class="card mb-3">
+					<div class="card-header form-inline">
+						<i class="fas fa-edit"></i><b>Chỉnh sửa nhà cung cấp</b>
+					</div>
+					<div class="card-body">
+						<form name="updateFormNCC" onsubmit="return validateFormNCC()" th:action="@{/admin/updateNCC/{idNCC}(idNCC=*{idNCC})}" th:object="${nhaCungCap}"
+                    method="post">
+							<div class="col-sm-12 ">
+								<div id="cbox_info" class="create-account">
+									<div class="row p-bottom-15">
+										<div class="col-md-6">
+											<div class="checkout-form-list">
+												<label>ID nhà cung cấp: <span style="color: red;"></span>
+												</label> <input type="text" class="form-control" disabled="disabled" th:id="*{idNCC}" th:field="*{idNCC}" />
+											</div>
+										</div>
+									</div>
+									<div class="row p-bottom-15">
+										<div class="col-md-6">
+											<div class="checkout-form-list">
+												<label>Tên nhà cung cấp: <span style="color: red;">*</span>
+												</label> <input type="text" class="form-control" th:field="*{tenNCC}"/>
+												<span class="removeicon"
+													id="nameErr" style="color: red;"></span>
+											</div>
+										</div>
+									</div>
+									<div class="row p-bottom-15">
+										<div class="col-md-6">
+											<div class="checkout-form-list">
+												<label>Địa chỉ: <span style="color: red;">*</span>
+												</label> <input type="text" class="form-control" th:field="*{diaChi}"/>
+												<span class="removeicon"
+													id="diaChiErr" style="color: red;"></span>
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="checkout-form-list">
+										<button class="btn btn-primary" type="submit">Cập
+											nhật</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- Sticky Footer -->
+			<footer th:replace="~{/admin/footer :: footer-fragment}"> </footer>
+
+		</div>
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Sẵn sàng rời
+						đi?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Chọn "Đăng xuất" bên dưới nếu bạn đã
+					sẵn sàng kết thúc phiên hiện tại của mình.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Hủy</button>
+					<a class="btn btn-primary" th:href="@{/admin/login}">Đăng xuất</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript-->
+	<script th:src="@{/admin/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/admin/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script th:src="@{/admin/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+	<!-- Page level plugin JavaScript-->
+	<script th:src="@{/admin/vendor/chart.js/Chart.min.js}"></script>
+	<script th:src="@{/admin/vendor/datatables/jquery.dataTables.js}"></script>
+	<script th:src="@{/admin/vendor/datatables/dataTables.bootstrap4.js}"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script th:src="@{/admin/js/sb-admin.min.js}"></script>
+
+	<!-- Demo scripts for this page-->
+	<script th:src="@{/admin/js/demo/datatables-demo.js}"></script>
+	<script th:src="@{/admin/js/demo/chart-area-demo.js}"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+	<script th:src="@{/admin/js/demo/updateSP.js}"></script>
+
+	<script th:src="@{/admin/js/custom/addSP.js}"></script>
+	<script type="text/javascript">
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					$('#blah').attr('src', e.target.result);
+				};
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
+	<script type="text/javascript">
+	var updateSuccess = [[${updateSuccess}]];
+	const swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+		    confirmButton: 'btn btn-success',
+		    cancelButton: 'btn btn-danger'
+		  },
+		  buttonsStyling: false
+		})
+		if(updateSuccess){
+			swalWithBootstrapButtons.fire(
+		      'Thông Báo!',
+		      'Cập nhật sản phẩm thành công',
+		      'success'
+		    ).then(function(){
+		    	window.location.href = '/admin/sanPham';
+		    })
+		};
+	</script>
+	
+	<!-- Validation Form -->
+	<script th:src="@{/admin/js/custom/validation-form-ncc.js}"></script>
+
+</body>
+
+</html>

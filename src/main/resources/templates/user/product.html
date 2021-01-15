@@ -1,0 +1,303 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
+<meta charset="UTF-8">
+<title>vvpThịnh Vượng - Chi tiết sản phẩm</title>
+<head th:replace="~{/user/head :: head-fragment}">
+
+</head>
+
+<body class="home-5">
+
+	<!-- header start -->
+	<header th:replace="~{/user/header :: header-fragment}"> </header>
+	<!-- header end -->
+	<!-- breadcrumb-area start -->
+	<div class="breadcrumb-area product-breadcrumb"
+		th:each="tenSP : ${chiTietSanPhamView}">
+		<div class="container">
+			<div class="breadcrumb">
+				<ul>
+					<li><a th:href="@{/index}"> Trang chủ <i
+							class="fa fa-angle-right"></i>
+					</a></li>
+					<li><a th:href="@{/shop}"> Cửa hàng <i
+							class="fa fa-angle-right"></i>
+					</a></li>
+					<li th:each="linkNhom : ${linkToNhom}"><a
+						th:href="@{/shop/{idNhom} (idNhom=${linkNhom.idNhomSP})}"
+						th:text="${linkNhom.name}"> </a> <i class="fa fa-angle-right"></i>
+					</li>
+					<li th:each="linkNhomCon : ${linkToNhomCon}"><a
+						th:href="@{/shop/nhom-con/{idNhomCon} (idNhomCon=${linkNhomCon.idNhomSPCon})}"
+						th:text="${linkNhomCon.name}"> </a> <i class="fa fa-angle-right"></i>
+					</li>
+					<li><span th:text="${tenSP.tenSP}"></span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- breadcrumb-area end -->
+	<!-- blog-main-area start -->
+	<div class="product-main-area" th:each="ctsp : ${chiTietSanPhamView}">
+		<div class="container">
+			<div class="row p-bottom-30">
+				<!-- product-page-photo start -->
+				<div class="col-lg-6 col-md-6 col-sm-4"
+					style="height: 300px; width: 500px;">
+					<div class="product-page-photo ">
+						<a href="#"> <img th:src="@{'/user/img/'+${ctsp.hinhAnh}}"
+							alt=""
+							style="height: 300px; width: 500px; position: relative; top: -10px; left: -100px;" />
+						</a>
+					</div>
+				</div>
+				<!-- product-page-photo end -->
+				<div class="col-lg-6 col-md-6 col-sm-8">
+					<div class="product-page-content m-top-30">
+						<div class="pro-page-title">
+							<h2 class="colorme" th:text="${ctsp.tenSP}"></h2>
+						</div>
+						<div class="product-page-price">
+							<span class="pro-price"
+								th:text="${#numbers.formatCurrency(ctsp.giaTien)}"></span>&#160;&#160;VNĐ
+						</div>
+						<div class="pro-shor-desc">
+							<table class="table">
+								<tbody>
+									<tr>
+										<td>Mã sản phẩm:</td>
+										<td th:text="${ctsp.maSP}"></td>
+									</tr>
+									<tr>
+										<td>Xuất sứ:</td>
+										<td th:text="${ctsp.sanXuat}"></td>
+									</tr>
+									<tr>
+										<td>Đơn vị tính:</td>
+										<td th:text="${ctsp.donViTinh}"></td>
+									</tr>
+									<!-- <tr>
+										<td>Quy cách:</td>
+										<td></td>
+									</tr> -->
+									<tr>
+										<td>Thương Hiệu:</td>
+										<td th:text="${ctsp.thuongHieu}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="product-total-cart">
+							<form action="#" th:action="${'/cart/buy/'+ctsp.idSanPham}"
+								method="get">
+								<input type="number" min="1" value="1" name="reqQuantity" />
+
+								<button type="submit">
+									<i class="fas fa-shopping-cart"></i> Thêm vào giỏ
+								</button>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="product-tab">
+						<div>
+							<!-- Nav tabs -->
+							<ul class="nav nav-tabs" role="tablist">
+								<li role="presentation" class="active"><a href="#home"
+									aria-controls="home" role="tab" data-toggle="tab">Thông tin</a>
+								</li>
+								<li role="presentation"><a href="#profile"
+									aria-controls="profile" role="tab" data-toggle="tab">Đánh
+										giá</a></li>
+							</ul>
+
+							<!-- Tab panes -->
+							<div class="tab-content">
+								<div role="tabpanel" class="tab-pane active" id="home">
+									<div class="product-page-tab-content">
+										<p th:text="${ctsp.thongTin}"></p>
+
+									</div>
+								</div>
+
+								<div role="tabpanel" class="tab-pane" id="profile">
+									<div class="product-page-comments">
+										<h2>
+											Bình luận cho <span th:text="*{spDuocBL}"></span>
+										</h2>
+
+										<div
+											th:class="${binhLuanView == null}?'desc p-bottom-15':'hidden'">
+											<b>Chưa có bình luận nào cho sản phẩm này!</b>
+										</div>
+
+										<ul th:each="bl : ${binhLuanView}">
+
+											<li>
+												<div class="product-comments">
+
+													<div class="product-comments-content">
+
+														<p>
+															<strong th:text="${bl.tenKH}"></strong> - <span
+																th:text="${#dates.format(bl.ngayBL, 'dd/MM/yyyy')}"></span>
+														</p>
+														<div class="desc">
+															<span th:text="${bl.noiDungBL}"></span>
+														</div>
+													</div>
+												</div>
+											</li>
+										</ul>
+										<div th:if="*{session.SESSION}" class="review-form-wrapper">
+											<h3>Bình luận</h3>
+											<form action="#" onsubmit="return validateFormReview()"
+												th:object="${binhLuan}" name="myFormReview" method="post"
+												th:action="@{/addBinhLuan}" novalidate>
+												<!-- <input type="text" placeholder="Tên của bạn" id="name" /> <span
+													class="removeicon" id="errorName"></span> <input
+													type="email" placeholder="Email của bạn" id="email" /> <span
+													class="removeicon" id="errorEmail"></span> -->
+												<textarea id="review" cols="30" rows="10"
+													placeholder="Nhận xét của bạn về sản phẩm này..."
+													th:field="*{noiDung}"></textarea>
+												<span class="removeicon" id="errorReview"
+													style="position: relative; top: -20px; left: -3px;"></span>
+												<br> <input type="submit" value="Gửi!" />
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- blog-main-area end -->
+	<!-- Sản phẩm tương tự -->
+	<div class="features-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div class="section-heading">
+						<h3>Những sản phẩm tương tự</h3>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="features-curosel">
+					<!-- single-features start -->
+					<div class="col-md-3" th:each="sptt : ${spTuongTuView}">
+						<div class="single-features">
+							<div class="product-img">
+								<a th:href="@{/product?id={id} (id=${sptt.idSanPham})}"> <img
+									style="height: 250px;" class="first-img"
+									th:src="@{'/user/img/'+${sptt.hinhAnh}}" alt="" />
+								</a>
+								<div class="action-buttons">
+									<a class="add-to-cart" th:href="${'/cart/buy/'+sptt.idSanPham}">
+										<i class="fa fa-shopping-cart"></i> <span>Thêm vào giỏ</span>
+									</a>
+
+								</div>
+							</div>
+							<div class="product-content">
+
+								<b> <a th:href="@{/product?id={id} (id=${sptt.idSanPham})}"
+									th:text="${sptt.tenSP}"></a>
+								</b> <span class="pro-price"
+									th:text="${#numbers.formatCurrency(sptt.giaTien)}"></span>
+							</div>
+						</div>
+					</div>
+					<!-- single-features end -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- features-area end -->
+
+	<!-- footer start -->
+	<footer th:replace="~{/user/footer :: footer-fragment}"> </footer>
+	<!-- footer end -->
+
+	<!-- JS -->
+
+	<!-- jquery js -->
+	<script th:src="@{/user/js/vendor/jquery-1.11.2.min.js}"></script>
+
+	<!-- bootstrap js -->
+	<script th:src="@{/user/js/bootstrap.min.js}"></script>
+
+	<!-- owl.carousel.min js -->
+	<script th:src="@{/user/js/owl.carousel.min.js}"></script>
+
+	<!-- slicknav js -->
+	<script th:src="@{/user/js/jquery.slicknav.js}"></script>
+
+	<!-- countdown js -->
+	<script th:src="@{/user/js/jquery.countdown.min.js}"></script>
+
+	<!-- price-slider js -->
+	<script th:src="@{/user/js/price-slider.js}"></script>
+
+	<!-- jquery.scrollUp js -->
+	<script th:src="@{/user/js/jquery.scrollUp.min.js}"></script>
+
+	<!-- Lib js -->
+	<script
+		th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.plugins.min.js}"></script>
+	<script
+		th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+	<script th:src="@{/user/lib/rs-plugin/rs.home.js}"></script>
+
+	<!-- plugins js -->
+	<script th:src="@{/user/js/plugins.js}"></script>
+
+	<!-- main js -->
+	<script th:src="@{/user/js/main.js}"></script>
+
+	<script type="text/javascript">
+		function validateFormReview() {
+			var myForm = document.forms["myFormReview"];
+
+			/* var u = myForm["name"].value;
+			var e = myForm["email"].value; */
+			var r = myForm["review"].value;
+
+			/* if (u == "") {
+				document.getElementById("errorName").innerHTML = '*Vui lòng nhập họ tên!';
+				myForm["name"].focus();
+				return false;
+			}
+			if (e == "") {
+				document.getElementById("errorEmail").innerHTML = '*Vui lòng nhập Email!';
+				myForm["email"].focus();
+				return false;
+			}
+			if (e.indexOf("@") < 1 || e.indexOf(".") < 1) {
+				document.getElementById("errorEmail").innerHTML = '*Vui lòng nhập đúng định dạng Email!';
+				myForm["email"].focus();
+				return false;
+			} */
+			if (r == "") {
+				document.getElementById("errorReview").innerHTML = '*Vui lòng viết đánh giá của bạn!';
+				myForm["review"].focus();
+				return false;
+			}
+
+			return true;
+		}
+	</script>
+
+</body>
+
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<ul th:each="dct : ${ctdhView}">
+
+		<li>
+			<div class="product-comments">
+
+				<div class="product-comments-content">
+
+					<p>
+						<strong th:text="${dct.tenSP}"></strong> 
+						<strong th:text="${dct.donGia}"></strong> 
+						<strong th:text="${dct.soLuong}"></strong> 
+					</p>
+
+				</div>
+			</div>
+		</li>
+	</ul>
+</body>
+</html>

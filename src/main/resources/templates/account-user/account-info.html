@@ -1,0 +1,219 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
+<meta charset="UTF-8">
+<title>vvpThịnh Vượng - Thông tin tài khoản</title>
+<head th:replace="~{/user/head :: head-fragment}">
+
+</head>
+
+<body class="home-5">
+
+	<!-- header start -->
+	<header th:replace="~{/user/header :: header-fragment}"> </header>
+	<!-- header end -->
+	<br>
+	<!-- breadcrumb-area start -->
+	<div class="breadcrumb-area shop-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb">
+				<ul>
+					<li><a th:href="@{/index}">Trang chủ <i
+							class="fa fa-angle-right"></i>
+					</a></li>
+					<li>Thông Tin Tài Khoản</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- breadcrumb-area end -->
+
+	<!-- blog-main-area start -->
+	<div class="blog-main-area">
+		<div class="container">
+			<div class="row">
+				<!-- sidebar start -->
+				<div
+					th:replace="~{/account-user/sidebar :: sidebar-account-fragment}"></div>
+				<!-- sidebar end -->
+
+				<!-- Quan ly account-->
+				<div class="col-lg-9 col-md-9 col-sm-12">
+					<!-- shop-filter start -->
+					<div class="shop-filter shop-space myborder">
+						<div class="m-10 f-account-info">
+							<h3 class="colorme">Thông tin tài khoản</h3>
+							<br>
+							<form name="updateFormKH" onsubmit="return validateForm()"
+								class="m-left-80" action="/account_info" method="post">
+								<div class="row">
+									<div class="col-md-2">
+										<label for="hoten">Họ tên:<span class="removeicon">*</span>
+										</label>
+									</div>
+									<div class="col-md-6">
+										<input class="form-control" type="text"
+											th:value="${session.SESSION.hoTen}" id="hoTen" name="hoTen">
+										<span class="removeicon" id="nameErr"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-2">
+										<label for="sdt">Số điện thoại<span class="removeicon">
+												*</span></label>
+									</div>
+									<div class="col-md-6">
+										<input class="form-control" type="text"
+											th:value="${session.SESSION.sdt}" id="sdt" name="sdt">
+											<span class="removeicon" id="sdtErr"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-2">
+										<label for="email">Email</label>
+									</div>
+									<div class="col-md-6">
+										<input class="form-control" type="text"
+											th:value="${session.SESSION.email}" id="email" name="email"
+											disabled="disabled"> <span class="removeicon"
+											id="emailErr"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-2"></div>
+									<div class="col-md-6">
+										<div class="create-acc">
+											<input name="addPass" id="cbox" type="checkbox" /> <label>Thay
+												đổi mật khẩu</label>
+										</div>
+									</div>
+								</div>
+								<div id="cbox_info" class="create-account">
+									<div class="row">
+										<div class="col-md-2">
+											<label for="mkcu">Mật khẩu cũ<span
+												style="color: red;">*</span>
+											</label>
+										</div>
+										<div class="col-md-6">
+											<input class="form-control" type="password" id="mkcu"
+												name="mkcu"> <span class="removeicon"
+												id="oldPassErr"></span>
+
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-2">
+											<label for="mkmoi">Mật khẩu mới<i style="color: red;">*</i></label>
+										</div>
+										<div class="col-md-6">
+											<input class="form-control" type="password" id="mkmoi"
+												name="mkmoi"> <span class="removeicon"
+												id="newPassErr"></span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-2">
+											<label for="nhaplai">Nhập lại mật khẩu<span
+												style="color: red;">*</span></label>
+										</div>
+										<div class="col-md-6">
+											<input class="form-control" type="password" id="nhaplaimk"
+												name="nhaplaimk"> <span class="removeicon"
+												id="checkPassErr"></span>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-2"></div>
+									<div class="col-md-6">
+										<b style="color: red" th:if="${errorPass != null}"
+											th:text="${errorPass}"></b>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-2"></div>
+									<div class="col-md-6">
+										<button class="btn btn-primary" type="submit">Cập
+											nhật</button>
+									</div>
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- blog-main-area end -->
+
+	<!-- footer start -->
+	<footer th:replace="~{/user/footer :: footer-fragment}"> </footer>
+	<!-- footer end -->
+
+	<!-- JS -->
+
+	<!-- jquery js -->
+	<script th:src="@{/user/js/vendor/jquery-1.11.2.min.js}"></script>
+
+	<!-- bootstrap js -->
+	<script th:src="@{/user/js/bootstrap.min.js}"></script>
+
+	<!-- owl.carousel.min js -->
+	<script th:src="@{/user/js/owl.carousel.min.js}"></script>
+
+	<!-- slicknav js -->
+	<script th:src="@{/user/js/jquery.slicknav.js}"></script>
+
+	<!-- countdown js -->
+	<script th:src="@{/user/js/jquery.countdown.min.js}"></script>
+
+	<!-- price-slider js -->
+	<script th:src="@{/user/js/price-slider.js}"></script>
+
+	<!-- jquery.scrollUp js -->
+	<!-- <script th:src="@{/user/js/jquery.scrollUp.min.js}"></script> -->
+
+	<!-- Lib js -->
+	<script
+		th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.plugins.min.js}"></script>
+	<script
+		th:src="@{/user/lib/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+	<script th:src="@{/user/lib/rs-plugin/rs.home.js}"></script>
+
+	<!-- plugins js -->
+	<script th:src="@{/user/js/plugins.js}"></script>
+
+	<!-- main js -->
+	<script th:src="@{/user/js/main.js}"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+	<script>
+		var updateSuccess = [[${updateSuccess}]];
+		const swalWithBootstrapButtons = Swal.mixin({
+			  customClass: {
+			    confirmButton: 'btn btn-success',
+			    cancelButton: 'btn btn-danger'
+			  },
+			  buttonsStyling: false
+			})
+			if(updateSuccess){
+				swalWithBootstrapButtons.fire(
+			      'Thông Báo!',
+			      'Cập nhật thành công!',
+			      'success'
+			    ).then(function(){
+			    	window.location.href = '/account_info';
+			    })
+			}	
+	</script>
+
+	<!-- Validation Form -->
+	<script th:src="@{/user/js/validation-update-kh.js}"></script>
+
+</body>
+
+
+</html>

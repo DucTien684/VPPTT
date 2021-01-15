@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Thông Tin Tài Khoản</title>
+
+<!-- Custom fonts for this template-->
+<link th:href="@{/admin/vendor/fontawesome-free/css/all.min.css}"
+	rel="stylesheet" type="text/css">
+<!-- Page level plugin CSS-->
+<link th:href="@{/admin/vendor/datatables/dataTables.bootstrap4.css}"
+	rel="stylesheet">
+<!-- Custom styles for this template-->
+<link th:href="@{/admin/css/sb-admin.css}" rel="stylesheet">
+<link th:href="@{/admin/css/my-style.css}" rel="stylesheet">
+<link
+	th:href="@{//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css}"
+	rel="stylesheet">
+<style type="text/css">
+#dataTable-remove-sp {
+	display: none
+}
+;
+</style>
+<link rel="stylesheet"
+	th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css}"
+	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+	crossorigin="anonymous">
+</head>
+
+<body id="page-top">
+
+	<nav th:replace="~{/admin/header:: header-fragment}"></nav>
+
+	<div id="wrapper">
+		<!-- Sidebar -->
+		<ul th:replace="~{/admin/sidebar :: sidebar-fragment}"></ul>
+
+		<div id="content-wrapper">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a th:href="@{/admin/index}">Trang
+						chủ</a></li>
+				<li class="breadcrumb-item active">Tài khoản cá nhân</li>
+			</ol>
+			<div class="article">
+				<div class="col-lg-9 col-md-9 col-sm-12">
+					<!-- shop-filter start -->
+					<div class="shop-filter shop-space myborder">
+						<div class="m-10 f-account-info">
+							<h3 class="colorme" style="color: #0040FF;">Thông Tin Tài
+								Khoản</h3>
+							<br>
+
+							<form name="updateFormIFNV" onsubmit="return validateFormIFNV()"
+								class="m-left-80" action="/admin/info" method="post">
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="email">Email: </label> <input class="form-control"
+											type="text" th:value="${session.SESSION1.email}" id="email"
+											name="email" disabled="disabled"> <span
+											class="removeicon" id="emailErr"></span>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="hoTen">Họ Tên: <span style="color: red;">*</span></label>
+										<input class="form-control" type="text"
+											th:value="${session.SESSION1.hoTen}" id="hoTen" name="hoTen">
+										<span class="removeicon" id="nameErr" style="color: red;"></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="diaChi">Địa Chỉ: <span style="color: red;">*</span></label>
+									<input class="form-control" type="text"
+										th:value="${session.SESSION1.diaChi}" id="diaChi"
+										name="diaChi" placeholder="Nhập địa chỉ cụ thể của bạn...">
+									<span class="removeicon" id="diaChiErr" style="color: red;"></span>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="sdt">Số Điện Thoại: <span
+											style="color: red;">*</span></label> <input class="form-control"
+											type="text" th:value="${session.SESSION1.sdt}" id="sdt"
+											name="sdt"> <span class="removeicon" id="sdtErr" style="color: red;"></span>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="ngaySinh">Ngày Sinh:</label> <input
+											class="form-control" type="text"
+											th:value="${#dates.format(session.SESSION1.ngaySinh, 'MM/dd/yyyy')}"
+											id="ngaySinh" name="ngaySinh" disabled="disabled">
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="gioiTinh">Giới Tính:</label> <input
+											class="form-control" type="text"
+											th:value="${session.SESSION1.gioiTinh}" id="gioiTinh"
+											name="gioiTinh" disabled="disabled">
+									</div>
+								</div>
+								<div class="form-group" data-toggle="collapse" href="#cbox_info"
+									aria-expanded="false" aria-controls="collapseE1">
+									<div class="form-check">
+										<input name="addPassNV" class="form-check-input"
+											type="checkbox" id="cbox">
+									</div>
+								</div>
+								<label class="form-check-label" for="gridCheck"
+									style="position: relative; top: -17px; left: 27px; font-weight: bold; font-style: italic;">
+									Thay đổi mật khẩu</label>
+								<div class="collapse" id="cbox_info">
+									<div class="form-row">
+										<div class="form-group col-md-6">
+											<label for="mkcu">Mật Khẩu Cũ:<span
+												style="color: red;">*</span></label> <input class="form-control"
+												type="password" id="mkcu" name="mkcu"> <span
+												class="removeicon" id="oldPassErr" style="color: red;"></span>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-md-6">
+											<label for="mkmoi">Mật Khẩu Mới:<span
+												style="color: red;">*</span></label> <input class="form-control"
+												type="password" id="mkmoi" name="mkmoi"> <span
+												class="removeicon" id="newPassErr" style="color: red;"></span>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-md-6">
+											<label for="nhaplai">Nhập Lại Mật Khẩu:<span
+												style="color: red;">*</span></label> <input class="form-control"
+												type="password" id="nhaplaimk" name="nhaplaimk"> <span
+												class="removeicon" id="checkPassErr" style="color: red;"></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-2"></div>
+									<div class="col-md-6">
+										<b style="color: red" th:if="${errorPass != null}"
+											th:text="${errorPass}"></b>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-2"></div>
+									<div class="col-md-6">
+										<button class="btn btn-primary" type="submit">Cập
+											nhật</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="aside" align="center">
+				<!-- <form>
+					<div>
+						<img
+							style="width: 150px; height: 150px; border-radius: 50%; -moz-border-radius: 50%; -webkit-border-radius: 50%;"
+							th:src="@{/images/us.png}">
+					</div>
+					<div class="row p-bottom-15">
+						<div class="col-md-6 cus-upload">
+							<div class="form-group">
+												<label>Hình ảnh: <span style="color: red;">*</span>
+												</label> <br>
+												<div style="margin-left: 50px;">
+													<img id="blah" th:src="@{'/admin/img/'+ *{anh}}"
+														alt="Your image" />
+												</div>
+												<br> <input type="file" accept="image/*"
+													onchange="readURL(this);" name="file" />
+											</div>
+						</div>
+					</div>
+					<div>
+						<p>
+							<small>Dung lượng file tối đa 1MB</small>
+						</p>
+						<p>
+							<small>Định dạng file: .JEPG, .PNG</small>
+						</p>
+					</div>
+				</form> -->
+			</div>
+			<!-- Sticky Footer -->
+			<footer th:replace="~{/admin/footer :: footer-fragment}"> </footer>
+		</div>
+	</div>
+	<style>
+body {
+	padding: 0px;
+	margin: 0px;
+}
+
+.article {
+	min-height: 500px;
+	width: 65%;
+	background-color: white;
+	float: left;
+}
+
+.aside {
+	background-color: white;
+	width: 35%;
+	min-height: 500px;
+	float: left;
+}
+</style>
+	<!-- /#wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Sẵn sàng rời
+						đi?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Chọn "Đăng xuất" bên dưới nếu bạn đã
+					sẵn sàng kết thúc phiên hiện tại của mình.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Hủy</button>
+					<a class="btn btn-primary" th:href="@{/admin/logout1}">Đăng
+						xuất</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript-->
+	<script th:src="@{/admin/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/admin/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script th:src="@{/admin/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+	<!-- Page level plugin JavaScript-->
+	<script th:src="@{/admin/vendor/chart.js/Chart.min.js}"></script>
+	<script th:src="@{/admin/vendor/datatables/jquery.dataTables.js}"></script>
+	<script th:src="@{/admin/vendor/datatables/dataTables.bootstrap4.js}"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script th:src="@{/admin/js/sb-admin.min.js}"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+	<!-- Demo scripts for this page-->
+	<!-- <script th:src="@{/admin/js/demo/datatables-demo.js}"></script>
+	<script th:src="@{/admin/js/demo/chart-area-demo.js}"></script> -->
+
+	<script>
+		var updateSuccess = [[${updateSuccess}]];
+		const swalWithBootstrapButtons = Swal.mixin({
+			  customClass: {
+			    confirmButton: 'btn btn-success',
+			    cancelButton: 'btn btn-danger'
+			  },
+			  buttonsStyling: false
+			})
+			if(updateSuccess){
+				swalWithBootstrapButtons.fire(
+			      'Thông Báo!',
+			      'Cập nhật thành công!',
+			      'success'
+			    ).then(function(){
+			    	window.location.href = '/admin/info';
+			    })
+			}	
+	</script>
+
+	<!-- Validation Form -->
+	<script th:src="@{/admin/js/custom/validation-update-nv.js}"></script>
+
+</body>
+
+</html>
