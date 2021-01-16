@@ -2,6 +2,8 @@ package com.springboot.vpp1849.repository;
 
 import com.springboot.vpp1849.model.DH_ChiTiet;
 import com.springboot.vpp1849.model.DonHang;
+import com.springboot.vpp1849.model.SanPham;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -67,5 +69,9 @@ public interface DonHangRepository extends JpaRepository<DonHang, String> {
 	
 	@Query(value = "FROM DonHang dh WHERE dh.idDonHang = ?1 AND dh.trangThai = 3")
 	DonHang findByIdDH(String idDonHang);
+	
+	// Get lớp sản phẩm theo id Sản phẩm
+		@Query("FROM DonHang s WHERE s.idDonHang = ?1")
+		DonHang getSPByIdDH(String idDH);
 
 }

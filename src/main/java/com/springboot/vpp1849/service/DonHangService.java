@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import com.springboot.vpp1849.model.DonHang;
+import com.springboot.vpp1849.model.SanPham;
 import com.springboot.vpp1849.model.DTO.DonHangDTO;
 import com.springboot.vpp1849.model.DTO.DonHangDTOs;
 
@@ -61,5 +62,7 @@ public interface DonHangService {
 	List<DonHang> findAllLichSuDonHang();
 
 	DonHang deleteDHCT(String idDonHang);
+	
+	DonHang find(String idDonHang);
 
 }

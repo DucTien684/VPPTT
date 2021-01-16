@@ -39,23 +39,23 @@ public class DH_ChiTietServiceImpl implements DH_ChiTietService{
 		return idDHCT;
 	}
 
-	@Override
-	public List<CustomChiTietDonHang> getDHChiTiet(String idDonHangChiTiet) {
-		
-		List<CustomChiTietDonHang> sanPham = new ArrayList<CustomChiTietDonHang>();
-		 
-		List<DH_ChiTiet> spham = dh_ChiTietRepository.getAllSPByIdDonHang(idDonHangChiTiet);
-		
-		for (DH_ChiTiet d : spham) { 
-		
-			CustomChiTietDonHang sp = new CustomChiTietDonHang();
-			sp.setTenSP(dh_ChiTietRepository.getBLTenSP(d.getIdDonHangChiTiet()));
-			sp.setSoLuong(d.getSoLuong());
-			sp.setDonGia(d.getDonGia());
-			sanPham.add(sp);
-		}
+	
+	  @Override public List<CustomChiTietDonHang> getDHChiTiet(String idDonHangChiTiet) {
+	  
+	  List<CustomChiTietDonHang> sanPham = new ArrayList<CustomChiTietDonHang>();
+	 
+	  List<DH_ChiTiet> spham = dh_ChiTietRepository.getAllSPByIdDonHang(idDonHangChiTiet);
+	  
+	  for (DH_ChiTiet d : spham) {
+	  
+	  CustomChiTietDonHang sp = new CustomChiTietDonHang();
+	  sp.setTenSP(dh_ChiTietRepository.getBLTenSP(d.getIdDonHangChiTiet()));
+	  sp.setSoLuong(d.getSoLuong()); sp.setDonGia(d.getDonGia()); sanPham.add(sp);
+	  }
+	  
+	  return sanPham; }
 
-		return sanPham;
-	}
+	
+	 
 
 }

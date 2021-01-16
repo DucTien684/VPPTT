@@ -5,6 +5,7 @@ import com.springboot.vpp1849.model.DTO.DonHangDTOs;
 import com.springboot.vpp1849.model.DH_ChiTiet;
 import com.springboot.vpp1849.model.DonHang;
 import com.springboot.vpp1849.model.KhachHang;
+import com.springboot.vpp1849.model.SanPham;
 import com.springboot.vpp1849.repository.DH_ChiTietRepository;
 import com.springboot.vpp1849.repository.DonHangRepository;
 import com.springboot.vpp1849.repository.KhachHangRepository;
@@ -207,4 +208,11 @@ public class DonHangServiceImpl implements DonHangService {
 		}
 		return deleteDHCT;
 	}
+
+	@Override
+	public DonHang find(String idDonHang) {
+		return donHangRepository.getSPByIdDH(idDonHang);
+	}
+	
+
 }

@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<ul th:each="dct : ${ctdhView}">
+<!--	<ul th:each="dct : ${ctdhView}">
 
 		<li>
 			<div class="product-comments">
@@ -17,10 +17,24 @@
 						<strong th:text="${dct.donGia}"></strong> 
 						<strong th:text="${dct.soLuong}"></strong> 
 					</p>
-
+				
 				</div>
 			</div>
 		</li>
-	</ul>
+	</ul>-->
+<table border="1" style="width:100%">
+         <tr>
+            <th>Tên  sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Đơn Giá</th>
+            
+         </tr>
+         <tr th:each="item : ${ctdhView}">
+            <td th:utext="${item.tenSP}"></td>
+            <td th:utext="${item.donGia}"></td>
+            <td th:utext="${item.soLuong}"></td>
+          
+         </tr>
+      </table>
 </body>
 </html>

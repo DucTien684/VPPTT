@@ -19,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.RandomStringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -426,7 +429,21 @@ public class AdminURL {
 		sidaBarAdmin(model);
 		return "admin/donHang/donHangDangcho";
 	}
+	
+	@GetMapping("/donhangdangcho1")
+	public String product(Model model, @RequestParam("id") String id, DonHang donHang, HttpSession session) {
 
+		List<CustomChiTietDonHang> ctdhView = dh_ChiTietService.getDHChiTiet(id);
+
+			model.addAttribute("ctdhView", ctdhView);
+
+			DonHang dh = donHangService.find(id);
+			session.setAttribute("dh", dh);
+			session.setAttribute("idDH", dh.getIdDonHang());
+		return "admin/donhangdangcho1";
+	}
+
+	
 	@GetMapping("/donHangDaXacNhan")
 	public String getFormDonHangDaXacNhan(Model model) {
 		List<DonHang> listDonHang = donHangService.findAllDonHangDaXacNhan();
@@ -818,19 +835,5 @@ public class AdminURL {
 	}
 	
 
-	@GetMapping("/donhangdangcho1")
-	public String product(Model model, @RequestParam("id") String id, DH_ChiTiet dhct, HttpSession session) {
-
-
-		List<CustomChiTietDonHang> ctdhView = dh_ChiTietService.getDHChiTiet(id);
-
-		if (ctdhView.isEmpty()) {
-			model.addAttribute("ctdhView", null);
-		} else {
-			model.addAttribute("ctdhView", ctdhView);
-		}
-
-
-		return "admin/donhangdangcho1";
-	}
+	
 }

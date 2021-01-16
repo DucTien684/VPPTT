@@ -13,6 +13,6 @@ public interface DH_ChiTietService {
 
 	String countDHCT();
 	
-	List<CustomChiTietDonHang> getDHChiTiet(String idDonHangChiTiet);
+	 List<CustomChiTietDonHang> getDHChiTiet(String idDonHangChiTiet); 
 	
 }

@@ -102,13 +102,18 @@
 										<td th:text="${#numbers.formatCurrency(item.tongSoTien)}"></td>
 										<td th:text="${item.diaChiGiaoHang}"></td>
 										<td th:text="${item.trangThai == 3}?'Đơn hàng chờ xác nhận!'"></td>
-										<td><button type="button"
+										<td>
+<!--<button type="button"
 												class="btn btn-info check-button getsp" data-toggle="modal"
 												data-target="#exampleModal" th:id='${item.idDonHang}'
 												th:data-id='${item.idDonHang}'
 												onclick="getDonHangById(this.id)">
 												<i class="fas fa-search-dollar"></i>
-											</button>
+											</button> -->
+<a
+th:href="@{/admin/donhangdangcho1?id={id} (id=${item.idDonHang})}">
+view
+</a>
 											<button class="btn btn-success check-button remove-sp"
 												th:data-id='${item.idDonHang}'>
 												<i class="fas fa-check"></i>
